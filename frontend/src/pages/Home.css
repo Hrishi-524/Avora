@@ -1,0 +1,45 @@
+/* .nav-hero-wrap {
+    background-image: url('/hotel.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 80vh; /* or as needed 
+}  */
+
+/* .hero-section {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background-image: url('/hotel.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+nav.MuiAppBar-root {
+  position: sticky; /* or fixed 
+  top: 0;
+  background-color: transparent;
+  z-index: 10;
+  transition: background-color 0.4s ease;
+} */
+
+.hero-background {
+  position: relative;
+  height: 70vh;
+  width: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-background::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('/villa.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+}

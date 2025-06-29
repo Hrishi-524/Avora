@@ -1,0 +1,101 @@
+:root {
+  /*Strandard fonr famaly*/
+  --ff: "Roboto", sans-serif;
+  
+  /*Use only of extremely important*/
+  --h1 : bold 2rem/1.6em var(--ff);/* Heading 32px */
+  --h2 : bold 1.5rem/1.4em var(--ff);
+  --h3 : bold 1.25rem/1.4em var(--ff);
+
+  /*Normal Usual Usage*/
+  --h4 : bold 1.125rem/2em var(--ff);/* 18px */
+  --h5 : bold 1rem/1.4em var(--ff);
+  --p : 1rem/1.4em var(--ff);/* 16 px */
+  --p2-bold : bold .875rem/1.4em var(--ff);
+  --p2 : .875rem/1.4em var(--ff);/* 14px */
+
+  /* HSL light mode */
+  --bg: hsl(0 0% 100%);
+  --bg-light: hsl(0 0% 96%);
+  --bg-dark: hsl(0 0% 90%);
+  
+  --text: hsl(0 0% 10%);
+  --text-muted: hsl(0 0% 45%);
+  --text-dark: hsl(0 0% 20%);  
+  
+  --highlight: hsl(345 100% 85%);
+  
+  --border: hsl(0 0% 85%);
+  --border-muted: hsl(0 0% 92%);
+  
+  --primary: hsl(148, 42%, 40%);   /* Earthy Green */
+  --primary-light: hsl(148, 42%, 85%);
+  --primary-dark: hsl(148, 42%, 25%);
+  --unprimary: hsl(150 80% 85%);
+  
+  --secondary: hsl(210, 70%, 45%); /* Muted Blue */
+  --secondary-light: hsl(210, 70%, 85%);
+  --secondary-dark: hsl(210, 70%, 30%);
+  
+  --danger: hsl(0, 70%, 50%);
+  --warning: hsl(38, 90%, 55%);
+  --success: hsl(145, 60%, 45%);
+  --info: hsl(220, 70%, 60%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body.dark {
+  /* HSL fallback */
+  --bg: hsl(0 0% 6%);
+  --bg-light: hsl(0 0% 10%);
+  --bg-dark: hsl(0 0% 14%);
+  
+  --text: hsl(0 0% 95%);
+  --text-muted: hsl(0 0% 60%);
+  --text-dark: hsl(0 0% 80%);
+
+  --border: hsl(0 0% 25%);
+  --border-muted: hsl(0 0% 15%);
+
+  --primary: hsl(148, 42%, 50%);
+  --primary-light: hsl(148, 42%, 70%);
+  --primary-dark: hsl(148, 42%, 30%);
+
+  --secondary: hsl(210, 70%, 60%);
+  --secondary-light: hsl(210, 70%, 80%);
+  --secondary-dark: hsl(210, 70%, 40%);
+}
+
+body {
+  background-color: var(--bg-light);
+}
+
+h1 {
+  font : var(--h1);
+}
+h2 {
+  font: var(--h2);
+}
+h3 {
+  font: var(--h3);
+}
+
+/**/
+h4 {
+  font: var(--h4);
+}
+h5 {
+  font: var(--p2-bold);
+}
+p {
+  font: var(--p);
+}
+.small-text {
+  font: var(--p2);
+}
+
