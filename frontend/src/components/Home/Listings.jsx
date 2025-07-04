@@ -4,7 +4,7 @@ import './Listings.css'
 export default function Listings({listings}) {
     return (
         <div className="listings"> 
-            <h3>Explore Bookings</h3>
+            <h4>Not sure where to ? Surf Beautiful Places Here</h4>
             <div className="cards-collection">
                 {listings.map((listing) => {
                     return (

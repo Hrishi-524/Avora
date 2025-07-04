@@ -27,7 +27,7 @@ nav.MuiAppBar-root {
 
 .hero-background {
   position: relative;
-  height: 70vh;
+  height: 85vh;
   width: 100%;
   z-index: 0;
   overflow: hidden;
@@ -37,7 +37,7 @@ nav.MuiAppBar-root {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url('/villa.webp');
+  background-image: url('/hotel.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

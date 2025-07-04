@@ -6,8 +6,9 @@
   position: sticky;
   top: 0;
   background-color: transparent;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.2s ease;
   overflow: hidden;
+  will-change: background-color;
 }
 
 .transperent-navbar::before {
@@ -19,11 +20,13 @@
   height: 100%;
   background-color: white;
   z-index: -1;
-  transition: top 0.5s ease;
+  transition: transform 0.2s ease;
+  transform: translateY(0);
+  will-change: transform;
 }
 
 .transperent-navbar:hover::before {
-  top: 0;
+  transform: translateY(100%);
 }
 
 .transperent-navbar:hover .nav-link {
@@ -38,7 +41,8 @@
   padding: 0.3rem 0.6rem;
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
+  will-change: transform;
 }
 
 .logo:hover {
@@ -50,10 +54,9 @@
   color:var(--text);
   font-weight: bold;
   text-transform: uppercase;
-  transition: color 0.3s ease;
+  transition: color 0.2s ease;
+  will-change: color;
 }
-
-
 
 .nav-hero-wrap {
   position: relative;

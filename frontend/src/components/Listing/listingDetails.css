@@ -1,0 +1,12 @@
+.host-profile {
+    max-width: 30rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-dark);
+    border-radius: .5rem;
+}
+
+.listing-description {
+    color: var(--text-muted);
+}

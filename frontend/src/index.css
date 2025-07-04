@@ -8,11 +8,11 @@
   --h3 : bold 1.25rem/1.4em var(--ff);
 
   /*Normal Usual Usage*/
-  --h4 : bold 1.125rem/2em var(--ff);/* 18px */
-  --h5 : bold 1rem/1.4em var(--ff);
+  --h4 : bold 1.125rem/2em var(--ff);/* 18 px */
+  --h5 : bold 1rem/1.4em var(--ff);/* 16 px bold */
   --p : 1rem/1.4em var(--ff);/* 16 px */
-  --p2-bold : bold .875rem/1.4em var(--ff);
-  --p2 : .875rem/1.4em var(--ff);/* 14px */
+  --p2-bold : bold .875rem/1.4em var(--ff);/* 14 px bold */
+  --p2 : .875rem/1.4em var(--ff);/* 14 px */
 
   /* HSL light mode */
   --bg: hsl(0 0% 100%);
@@ -20,7 +20,7 @@
   --bg-dark: hsl(0 0% 90%);
   
   --text: hsl(0 0% 10%);
-  --text-muted: hsl(0 0% 45%);
+  --text-muted: hsl(0 0% 40%);
   --text-dark: hsl(0 0% 20%);  
   
   --highlight: hsl(345 100% 85%);

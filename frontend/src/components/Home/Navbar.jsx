@@ -13,7 +13,6 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import './Navbar.css'
-import HeroSection from './HeroSection';
 
 const pages = ['villas', 'hotels', 'trips'];
 const settings = ['My Bookings/Trips', 'Dashboard', 'Logout'];
@@ -40,7 +39,7 @@ export default function Navbar() {
   return (
     <AppBar position="absolute" className='transperent-navbar' elevation={0} 
         sx={{backgroundColor: 'transparent', boxShadow:'none'
-            ,transition: 'background-color 0.3s ease',
+            ,transition: 'background-color 0.2s ease',
         }}
     >
         <Container maxWidth="xl">

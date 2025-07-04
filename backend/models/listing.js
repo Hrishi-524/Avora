@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import { Schema, model } from 'mongoose';
 
-const listingSchema = new mongoose.Schema({
+const listingSchema = new Schema({
     title : {
         type : String,
         required: true
@@ -9,14 +9,17 @@ const listingSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    image : {
+    images : [{
         filename : {
             type : String,
         }, 
+        featured : {
+            type : Boolean,
+        },
         url : {
             type : String
         }
-    },
+    }],
     price : {
         type : Number,
         required : true
@@ -27,7 +30,16 @@ const listingSchema = new mongoose.Schema({
     },
     country : {
         type : String
-    }
+    },
+    host : {
+        type : Schema.Types.ObjectId,
+        ref : 'User',
+    },
+    reviews : [{
+        type : Schema.Types.ObjectId,
+        ref : 'Review',
+    }],
 })
 
-module.exports = mongoose.model('Listing', listingSchema);
+const Listing = model('Listing', listingSchema);
+export default Listing;

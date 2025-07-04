@@ -1,5 +1,5 @@
 .listings {
-  background-color: hsl(150 80% 85%);
+  background-color: var(--bg-light);
   display: flex;
   flex-direction: column;
   justify-content: center;
