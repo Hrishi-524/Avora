@@ -4,6 +4,8 @@ export const isLoggedIn = (req, res, next) => {
     try {
         // Get token from Authorization header
         const authHeader = req.headers.authorization;
+        console.log("Middleware ---")
+        console.log(authHeader)
         
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
             return res.status(401).json({ error: "Access denied. No token provided." });
