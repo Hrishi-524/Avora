@@ -6,16 +6,17 @@ export const fetchListings = async () => {
     return res.data;
   } catch (error) {
     console.error("Error fetching listings", error);
-    throw err;
+    throw error;
   }
 };
 
 export const fetchListingById = async (id) => {
     try {
+        // Token will be automatically included via axios defaults set in user.js
         const res = await axios.get(`/api/listings/${id}`);
         return res.data;
     } catch (error) {
         console.error("Error fetching listing", error);
-    throw err;
+        throw error; // Fixed: was 'err' but should be 'error'
     }
 }

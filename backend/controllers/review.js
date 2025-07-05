@@ -1,0 +1,28 @@
+import Review from "../models/Review.js";
+import Listings from "../models/Listing.js";
+
+export const saveReviewData = async (req, res) => {
+    let { id } = req.params;
+    let {comment , rating} = req.body;
+
+    let listing = await Listings.findById(id);
+    let newReview = new Review({
+        comment : comment,
+        rating : rating,
+        createdAt: Date.now(),
+    })
+    listing.reviews.push(newReview._id)
+
+    console.log("Review succesfully submitted")
+    console.log(listing.reviews);
+
+    await newReview.save();
+    await listing.save();
+
+    let populatedListing = await Listings.findById(id).populate("reviews");
+    let latestReview = populatedListing.reviews[populatedListing.reviews.length - 1];
+    console.log("latest review")
+    console.log(latestReview)
+
+    res.json(latestReview);
+}

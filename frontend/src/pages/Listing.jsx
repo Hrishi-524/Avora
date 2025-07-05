@@ -11,7 +11,7 @@ export default function Listing() {
     let params = useParams();
 
     useEffect(() => {
-        fetchListingById(params.id)
+        fetchListingById(params.id, localStorage.getItem('token'))
         .then((data) => {
             setListing(data);
         })

@@ -38,3 +38,4 @@ export default function Card({listing}) {
         </MUICard>  
     )
 }
+

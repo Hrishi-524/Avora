@@ -12,10 +12,12 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
+import { NavLink, Link } from "react-router-dom";
 import './Navbar.css'
 
 const pages = ['villas', 'hotels', 'trips'];
 const settings = ['My Bookings/Trips', 'Dashboard', 'Logout'];
+const links = ['/listings', '/listings', '/listings']
 
 export default function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -92,11 +94,23 @@ export default function Navbar() {
                         onClose={handleCloseNavMenu}
                         sx={{ display: { xs: 'block', md: 'none' } }}
                     >
-                        {pages.map((page) => (
+                        {pages.map((page, index) => (
                             <MenuItem key={page} onClick={handleCloseNavMenu}>
-                            <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                                <Link to={links[index]} style={{textDecoration:'none', color:'inherit', width:'100%'}}>
+                                    <Typography sx={{ textAlign: 'center' }}>{page}</Typography>
+                                </Link>
                             </MenuItem>
                         ))}
+                        <MenuItem onClick={handleCloseNavMenu}>
+                            <Link to="/login" style={{textDecoration:'none', color:'inherit', width:'100%'}}>
+                                <Typography sx={{ textAlign: 'center' }}>Login</Typography>
+                            </Link>
+                        </MenuItem>
+                        <MenuItem onClick={handleCloseNavMenu}>
+                            <Link to="/signup" style={{textDecoration:'none', color:'inherit', width:'100%'}}>
+                                <Typography sx={{ textAlign: 'center' }}>Sign Up</Typography>
+                            </Link>
+                        </MenuItem>
                     </Menu>
                 </Box>
                 <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -123,21 +137,58 @@ export default function Navbar() {
           
                 {/* THIS IS PAGES PART */}
                 <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, ml: 4 }}>
-                    {pages.map((page) => (
+                    {pages.map((page, index) => (
+                        <Button
+                            key={page}
+                            onClick={handleCloseNavMenu}
+                            className="nav-link"
+                            sx={{
+                                my: 2,
+                                display: 'block',
+                                fontWeight: 'bold',
+                                color:'white'
+                            }}
+                        >
+                            <Link to={links[index]} style={{textDecoration:'none', color:'inherit'}}>
+                                {page}
+                            </Link>
+                        </Button>
+                    ))}
+                </Box>
+
+                {/* LOGIN AND SIGNUP BUTTONS */}
+                <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2, mr: 2 }}>
                     <Button
-                        key={page}
-                        onClick={handleCloseNavMenu}
-                        className="nav-link"
+                        component={Link}
+                        to="/login"
+                        variant="outlined"
                         sx={{
-                            my: 2,
-                            display: 'block',
+                            color: 'white',
+                            borderColor: 'white',
                             fontWeight: 'bold',
-                            color:'white'
+                            '&:hover': {
+                                borderColor: 'white',
+                                backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                            }
                         }}
                     >
-                        {page}
+                        Login
                     </Button>
-                    ))}
+                    <Button
+                        component={Link}
+                        to="/signup"
+                        variant="contained"
+                        sx={{
+                            backgroundColor: 'white',
+                            color: 'black',
+                            fontWeight: 'bold',
+                            '&:hover': {
+                                backgroundColor: 'rgba(255, 255, 255, 0.9)'
+                            }
+                        }}
+                    >
+                        Sign Up
+                    </Button>
                 </Box>
 
                 {/* PROFILE ICON AT RIGHT */}
