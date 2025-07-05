@@ -1,7 +1,10 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import { verifyLoginData, redirectToHome } from '../api/user';
 
 export default function Login() {
+    const navigate = useNavigate();
+    
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
@@ -17,7 +20,7 @@ export default function Login() {
             localStorage.setItem('token', token);
             console.log("This is the token saved in localStorage");
             console.log(localStorage.getItem('token'));
-            await redirectToHome(token);
+            await redirectToHome(token, navigate);
         } catch (error) {
             console.error('Login failed:', error);
             alert('Login failed. Please check your credentials.');
@@ -28,7 +31,7 @@ export default function Login() {
             <form onSubmit={handleSubmit}>
                 <label htmlFor="username">Username</label>
                 <input type="text" name="username" id="username" />
-                <label htmlFor="password">Set Password</label>
+                <label htmlFor="password">Password</label>
                 <input type="password" name="password" id="passsword" />  
                 <button type='submit'>Submit</button> 
             </form>

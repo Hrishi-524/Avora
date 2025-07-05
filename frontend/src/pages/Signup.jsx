@@ -1,7 +1,10 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import { sendSignupData, redirectToHome } from '../api/user';
 
 export default function Signup() {
+    const navigate = useNavigate();
+    
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
@@ -15,10 +18,7 @@ export default function Signup() {
             console.log(signupData);
             const response = await sendSignupData(signupData);
             const token = response.data.token;
-            localStorage.setItem('token', token);
-            console.log("This is the token saved in localStorage");
-            console.log(localStorage.getItem('token'));
-            redirectToHome(localStorage.getItem('token'));
+            await redirectToHome(token, navigate);
         } catch (error) {
             console.log('Error at Signup.jsx');
             console.log(error);

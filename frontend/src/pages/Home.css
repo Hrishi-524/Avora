@@ -27,17 +27,19 @@ nav.MuiAppBar-root {
 
 .hero-background {
   position: relative;
-  height: 85vh;
+  height: 100vh; /* Full height for hero */
   width: 100%;
   z-index: 0;
   overflow: hidden;
+  margin-top: -80px; /* Offset navbar height, adjust as needed */
+  padding-top: 80px; /* Add padding to prevent content overlap */
 }
 
 .hero-background::before {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url('/hotel.webp');
+  background-image: url('/villa.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

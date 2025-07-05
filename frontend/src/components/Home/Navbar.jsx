@@ -12,7 +12,8 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
+import { isAuthenticated, removeToken } from '../../utils/auth';
 import './Navbar.css'
 
 const pages = ['villas', 'hotels', 'trips'];
@@ -20,26 +21,91 @@ const settings = ['My Bookings/Trips', 'Dashboard', 'Logout'];
 const links = ['/listings', '/listings', '/listings']
 
 export default function Navbar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+	const [anchorElNav, setAnchorElNav] = React.useState(null);
+	const [anchorElUser, setAnchorElUser] = React.useState(null);
+	const navigate = useNavigate();
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
+	const handleOpenNavMenu = (event) => {
+		setAnchorElNav(event.currentTarget);
+	};
+	const handleOpenUserMenu = (event) => {
+		setAnchorElUser(event.currentTarget);
+	};
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+	const handleCloseNavMenu = () => {
+		setAnchorElNav(null);
+	};
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+	const handleCloseUserMenu = () => {
+		setAnchorElUser(null);
+	};
+
+	const handleLogout = () => {
+		removeToken(); // Clear token from localStorage and axios headers
+		navigate('/'); // Redirect to home page
+		setAnchorElUser(null); // Close user menu
+	};
+
+	const returnAppropriateButtons = () => {
+		if (isAuthenticated()) {
+			// User is logged in - show logout button
+			return (
+				<Button
+					onClick={handleLogout}
+					variant="contained"
+					sx={{
+						backgroundColor: '#f44336', // Red color for logout
+						color: 'white',
+						fontWeight: 'bold',
+						'&:hover': {
+							backgroundColor: '#d32f2f'
+						}
+					}}
+				>
+					Logout
+				</Button>
+			);
+		} else {
+			// User is not logged in - show login and signup buttons
+			return (
+				<>
+					<Button
+						component={Link}
+						to="/login"
+						variant="contained"
+						sx={{
+							backgroundColor: 'white',
+							color: 'black',
+							fontWeight: 'bold',
+							'&:hover': {
+								backgroundColor: 'rgba(255, 255, 255, 0.9)'
+							}
+						}}
+					>
+						Log In
+					</Button>
+					<Button
+						component={Link}
+						to="/signup"
+						variant="contained"
+						sx={{
+							backgroundColor: 'white',
+							color: 'black',
+							fontWeight: 'bold',
+							'&:hover': {
+								backgroundColor: 'rgba(255, 255, 255, 0.9)'
+							}
+						}}
+					>
+						Sign Up
+					</Button>
+				</>
+			);
+		}
+	}
 
   return (
-    <AppBar position="absolute" className='transperent-navbar' elevation={0} 
+    <AppBar position="sticky" className='transperent-navbar' elevation={0} 
         sx={{backgroundColor: 'transparent', boxShadow:'none'
             ,transition: 'background-color 0.2s ease',
         }}
@@ -101,16 +167,25 @@ export default function Navbar() {
                                 </Link>
                             </MenuItem>
                         ))}
-                        <MenuItem onClick={handleCloseNavMenu}>
-                            <Link to="/login" style={{textDecoration:'none', color:'inherit', width:'100%'}}>
-                                <Typography sx={{ textAlign: 'center' }}>Login</Typography>
-                            </Link>
-                        </MenuItem>
-                        <MenuItem onClick={handleCloseNavMenu}>
-                            <Link to="/signup" style={{textDecoration:'none', color:'inherit', width:'100%'}}>
-                                <Typography sx={{ textAlign: 'center' }}>Sign Up</Typography>
-                            </Link>
-                        </MenuItem>
+                        {/* Conditional auth menu items for mobile */}
+                        {isAuthenticated() ? (
+                            <MenuItem onClick={() => { handleCloseNavMenu(); handleLogout(); }}>
+                                <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
+                            </MenuItem>
+                        ) : (
+                            <>
+                                <MenuItem onClick={handleCloseNavMenu}>
+                                    <Link to="/login" style={{textDecoration:'none', color:'inherit', width:'100%'}}>
+                                        <Typography sx={{ textAlign: 'center' }}>Login</Typography>
+                                    </Link>
+                                </MenuItem>
+                                <MenuItem onClick={handleCloseNavMenu}>
+                                    <Link to="/signup" style={{textDecoration:'none', color:'inherit', width:'100%'}}>
+                                        <Typography sx={{ textAlign: 'center' }}>Sign Up</Typography>
+                                    </Link>
+                                </MenuItem>
+                            </>
+                        )}
                     </Menu>
                 </Box>
                 <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -156,71 +231,46 @@ export default function Navbar() {
                     ))}
                 </Box>
 
-                {/* LOGIN AND SIGNUP BUTTONS */}
+                {/* LOGIN , SIGNUP AND LOGOUT BUTTONS */}
                 <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 2, mr: 2 }}>
-                    <Button
-                        component={Link}
-                        to="/login"
-                        variant="outlined"
-                        sx={{
-                            color: 'white',
-                            borderColor: 'white',
-                            fontWeight: 'bold',
-                            '&:hover': {
-                                borderColor: 'white',
-                                backgroundColor: 'rgba(255, 255, 255, 0.1)'
-                            }
-                        }}
-                    >
-                        Login
-                    </Button>
-                    <Button
-                        component={Link}
-                        to="/signup"
-                        variant="contained"
-                        sx={{
-                            backgroundColor: 'white',
-                            color: 'black',
-                            fontWeight: 'bold',
-                            '&:hover': {
-                                backgroundColor: 'rgba(255, 255, 255, 0.9)'
-                            }
-                        }}
-                    >
-                        Sign Up
-                    </Button>
+                    {returnAppropriateButtons()}
                 </Box>
 
-                {/* PROFILE ICON AT RIGHT */}
-                <Box sx={{ flexGrow: 0 }}>
-                    <Tooltip title="Open settings">
-                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                            <Avatar alt="User" src="/static/images/avatar/2.jpg" />
-                        </IconButton>
-                    </Tooltip>
-                    <Menu
-                        sx={{ mt: '45px' }}
-                        id="menu-appbar"
-                        anchorEl={anchorElUser}
-                        anchorOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'right',
-                        }}
-                        open={Boolean(anchorElUser)}
-                        onClose={handleCloseUserMenu}
-                    >
-                        {settings.map((setting) => (
-                            <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                            <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
-                            </MenuItem>
-                        ))}
-                    </Menu>
-                </Box>
+                {/* PROFILE ICON AT RIGHT - Only show when logged in */}
+                {isAuthenticated() && (
+                    <Box sx={{ flexGrow: 0 }}>
+                        <Tooltip title="Open settings">
+                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                <Avatar alt="User" src="/static/images/avatar/2.jpg" />
+                            </IconButton>
+                        </Tooltip>
+                        <Menu
+                            sx={{ mt: '45px' }}
+                            id="menu-appbar"
+                            anchorEl={anchorElUser}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            keepMounted
+                            transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                            open={Boolean(anchorElUser)}
+                            onClose={handleCloseUserMenu}
+                        >
+                            {settings.map((setting) => (
+                                <MenuItem 
+                                    key={setting} 
+                                    onClick={setting === 'Logout' ? handleLogout : handleCloseUserMenu}
+                                >
+                                    <Typography sx={{ textAlign: 'center' }}>{setting}</Typography>
+                                </MenuItem>
+                            ))}
+                        </Menu>
+                    </Box>
+                )}
             </Toolbar>
         </Container>
     </AppBar>    

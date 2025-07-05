@@ -12,10 +12,15 @@ export const verifyLoginData = async (loginData) => {
     return response;
 }
 
-export const redirectToHome = async (token) => {
+export const redirectToHome = async (token, navigate) => {
     // Use the auth utility to set token
     if (token) {
         setToken(token);
     }
-    await fetchListings();
+    console.log("fetchlistings called")
+    fetchListings();
+    // Navigate to home page
+    if (navigate) {
+        navigate('/');
+    }
 }

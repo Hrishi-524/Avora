@@ -21,8 +21,8 @@ export default function Home() {
 
     return(
         <div className="home-page">
+            <Navbar />
             <div className="hero-background">
-                <Navbar />
                 <HeroSection />
             </div>
             <Listings listings={listings} />
