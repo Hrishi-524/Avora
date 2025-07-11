@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode'
 
 // Set up axios interceptor to automatically include token in requests
 export const setupAxiosInterceptors = () => {
@@ -31,6 +32,18 @@ export const setupAxiosInterceptors = () => {
     );
 };
 
+//decode user info from jwt
+export const getUserInfo = () => {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+    try {
+        let decoded = jwtDecode(token);
+        return decoded; // decoded is an object as decoded.id and decoded.username 
+    } catch (error) {
+        console.error('Invalid token:', error);
+        return null;
+    }
+}
 // Check if user is authenticated
 export const isAuthenticated = () => {
     const token = localStorage.getItem('token');

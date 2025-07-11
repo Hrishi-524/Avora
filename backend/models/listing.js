@@ -39,6 +39,10 @@ const listingSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref : 'Review',
     }],
+    avarageRating : {
+        type : Number,
+        default : 3,
+    }
 })
 
 const Listing = model('Listing', listingSchema);

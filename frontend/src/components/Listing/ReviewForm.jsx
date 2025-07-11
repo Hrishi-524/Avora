@@ -47,28 +47,44 @@ export default function ReviewForm({listing, reviews,setReviews}) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <TextField name="comment" id="outlined-multiline-flexible" label="Review" multiline fullWidth/>
-            <Box sx={{ width: 200, display: 'flex', alignItems: 'center' }}>
-                <Rating
-                    name="hover-feedback"
-                    value={value}
-                    precision={0.5}
-                    getLabelText={getLabelText}
-                    onChange={(event, newValue) => {
-                        setValue(newValue);
-                    }}
-                    onChangeActive={(event, newHover) => {
-                        setHover(newHover);
-                    }}
-                    emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-                    sx={{fontFamily:'var(--ff)'}}
+        <form className="review-form" onSubmit={handleSubmit}>
+            <h4>Share Your Experience</h4>
+            
+            <div className="review-form-fields">
+                <TextField 
+                    name="comment" 
+                    label="Write your review" 
+                    multiline 
+                    rows={4}
+                    fullWidth
+                    placeholder="Tell others about your experience..."
                 />
-                {value !== null && (
-                    <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
-                )}
-            </Box>
-            <Button type='submit' variant="outlined" color="success">Comment</Button>
+                
+                <div className="rating-section">
+                    <span className="rating-label">Rating:</span>
+                    <Rating
+                        name="hover-feedback"
+                        value={value}
+                        precision={0.5}
+                        getLabelText={getLabelText}
+                        onChange={(event, newValue) => {
+                            setValue(newValue);
+                        }}
+                        onChangeActive={(event, newHover) => {
+                            setHover(newHover);
+                        }}
+                        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+                        sx={{fontFamily:'var(--ff)'}}
+                    />
+                    {value !== null && (
+                        <span className="rating-label">{labels[hover !== -1 ? hover : value]}</span>
+                    )}
+                </div>
+            </div>
+            
+            <div className="review-form-actions">
+                <button type='submit' className="review-submit-btn">Submit Review</button>
+            </div>
         </form>
     )
 }

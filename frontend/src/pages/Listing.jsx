@@ -21,15 +21,24 @@ export default function Listing() {
     }, [params.id]);
 
     if (!listing || !listing.images) {
-		return <div>Loading listing...</div>;
+		return (
+			<div className="loading-container">
+				<div className="loading-spinner"></div>
+				<p>Loading listing details...</p>
+			</div>
+		);
 	}
 
     return (
         <div className="listing">
-            <h4>{listing.title}</h4>
-            <ImageCarousel listing={listing}/>
-            <ListingDetails listing={listing} />
-            <Reviews listing={listing} />
+            <div className="image-comp">
+                <ImageCarousel listing={listing}/>
+            </div>
+            <div className="info">
+                <h1>{listing.title}</h1>
+                <ListingDetails listing={listing} />
+                <Reviews listing={listing} />
+            </div>
         </div>
     )
 }

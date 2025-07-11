@@ -19,10 +19,15 @@ export const saveReviewData = async (req, res) => {
     await newReview.save();
     await listing.save();
 
-    let populatedListing = await Listings.findById(id).populate("reviews");
+    let populatedListing = await Listings.findById(id).populate("reviews").populate("host");
     let latestReview = populatedListing.reviews[populatedListing.reviews.length - 1];
     console.log("latest review")
     console.log(latestReview)
 
+    let previousSum = listing.averageRating * (listing.reviews.length - 1);
+    let newTotalRating = previousSum + latestReview.rating;
+    let totalReviews = listing.reviews.length;
+    listing.averageRating = newTotalRating / totalReviews;
+    
     res.json(latestReview);
 }

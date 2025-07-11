@@ -53,6 +53,7 @@ const initDB = async () => {
         await Listing.updateMany({}, { host: hostAdmin._id });
         console.log("Host assigned to all listings");
 
+        let HostListings = await Listing.find({host : hostAdmin._id})
         console.log("Database initialized successfully!");
         process.exit(0); // Exit successfully
     } catch (error) {

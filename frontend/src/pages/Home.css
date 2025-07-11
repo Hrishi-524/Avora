@@ -27,7 +27,7 @@ nav.MuiAppBar-root {
 
 .hero-background {
   position: relative;
-  height: 100vh; /* Full height for hero */
+  height: 80vh; /* Full height for hero */
   width: 100%;
   z-index: 0;
   overflow: hidden;

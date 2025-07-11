@@ -25,6 +25,9 @@ const userSchema = new Schema({
     bio : {
         type : String,
     },
+    hostRating : {
+        type : Number,
+    }
 })
 
 const User = model('User', userSchema);

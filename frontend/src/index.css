@@ -41,6 +41,18 @@
   --warning: hsl(38, 90%, 55%);
   --success: hsl(145, 60%, 45%);
   --info: hsl(220, 70%, 60%);
+  
+  /* Card and component styling */
+  --card-bg: hsl(0 0% 100%);
+  --card-shadow: 0 4px 12px hsla(0, 0%, 0%, 0.1);
+  --card-shadow-hover: 0 8px 24px hsla(0, 0%, 0%, 0.15);
+  --card-border-radius: 12px;
+  
+  /* Accent colors for listings */
+  --accent-gold: hsl(45, 100%, 51%);
+  --accent-gold-light: hsl(45, 100%, 90%);
+  --accent-emerald: hsl(142, 76%, 36%);
+  --accent-emerald-light: hsl(142, 76%, 90%);
 }
 
 * {
@@ -69,6 +81,11 @@ body.dark {
   --secondary: hsl(210, 70%, 60%);
   --secondary-light: hsl(210, 70%, 80%);
   --secondary-dark: hsl(210, 70%, 40%);
+  
+  /* Dark mode card styling */
+  --card-bg: hsl(0 0% 10%);
+  --card-shadow: 0 4px 12px hsla(0, 0%, 0%, 0.3);
+  --card-shadow-hover: 0 8px 24px hsla(0, 0%, 0%, 0.4);
 }
 
 body {
