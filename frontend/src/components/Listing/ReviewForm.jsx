@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
 import Button from '@mui/material/Button';
 import { sendReviewData } from '../../api/Reviews';
+import {getUserInfo} from "../../utils/auth.js";
 
 const labels = {
   0.5: 'Worst',
@@ -31,16 +32,19 @@ export default function ReviewForm({listing, reviews,setReviews}) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const user = getUserInfo();
+        console.log("this is user [ReviewForm.jsx] ", user);
         let formData = new FormData(e.target);
         let data = {
             comment : formData.get("comment"),
             rating : formData.get("hover-feedback"),
             listingId : listing._id,
+            author : user.id,
         }
-        console.log(data);
+        console.log("this  is data to be submitted [ReviewForm.jsx]", data);
         sendReviewData(data)
         .then((newReview) => {
-            console.log("submitted new review")
+            console.log("submitted new review [ReviewForm.jsx]")
             console.log(newReview)
             setReviews(prevReviews => [...prevReviews, newReview])
         })
@@ -55,7 +59,7 @@ export default function ReviewForm({listing, reviews,setReviews}) {
                     name="comment" 
                     label="Write your review" 
                     multiline 
-                    rows={4}
+                    rows={1}
                     fullWidth
                     placeholder="Tell others about your experience..."
                 />

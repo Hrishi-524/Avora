@@ -17,7 +17,6 @@ export const redirectToHome = async (token, navigate) => {
     if (token) {
         setToken(token);
     }
-    console.log("fetchlistings called")
     fetchListings();
     // Navigate to home page
     if (navigate) {

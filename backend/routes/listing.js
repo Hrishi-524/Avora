@@ -7,6 +7,6 @@ router.route("/")
 .get(renderHomePage)
 
 router.route("/:id")
-.get(isLoggedIn, renderListingById);
+.get(renderListingById);
 
 export default router;

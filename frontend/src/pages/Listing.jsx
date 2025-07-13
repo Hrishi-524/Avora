@@ -33,9 +33,9 @@ export default function Listing() {
         <div className="listing">
             <div className="image-comp">
                 <ImageCarousel listing={listing}/>
+                <h2>{listing.title}</h2>
             </div>
             <div className="info">
-                <h1>{listing.title}</h1>
                 <ListingDetails listing={listing} />
                 <Reviews listing={listing} />
             </div>

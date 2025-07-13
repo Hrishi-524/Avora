@@ -46,7 +46,7 @@
   --card-bg: hsl(0 0% 100%);
   --card-shadow: 0 4px 12px hsla(0, 0%, 0%, 0.1);
   --card-shadow-hover: 0 8px 24px hsla(0, 0%, 0%, 0.15);
-  --card-border-radius: 12px;
+  --card-border-radius: 3px;
   
   /* Accent colors for listings */
   --accent-gold: hsl(45, 100%, 51%);

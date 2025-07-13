@@ -3,6 +3,8 @@ import ShowReview from './ShowReview'
 import ReviewForm from './ReviewForm'
 import { useEffect, useState } from 'react'
 import { getUserInfo } from '../../utils/auth'
+import * as React from "react";
+import {deleteReviewById} from "../../api/Reviews.js";
 
 export default function Reviews({listing}) {
     let [user, setUser] = useState({})
@@ -15,10 +17,27 @@ export default function Reviews({listing}) {
         }
     }, [])
     useEffect(() => {
-    if (listing && listing.reviews) {
-        setReviews(listing.reviews);
-    }
+        if (listing && listing.reviews) {
+            setReviews(listing.reviews);
+        }
     }, [listing]);
+
+    const deleteReview = (review) => {
+        let reviewId = review._id;
+        console.log("[Review.jsx] These are both Id's", reviewId, listing._id);
+        deleteReviewById(reviewId, listing._id)
+            .then((response) => {
+                if (response.success) {
+                    // Update the reviews state by filtering out the deleted review
+                    setReviews(prevReviews => prevReviews.filter(r => r._id !== reviewId));
+                    console.log("Review successfully deleted [Review.jsx]", response.deletedReview);
+                }
+            })
+            .catch((error) => {
+                console.log("Error while deleting the review [Review.jsx]", error)
+            });
+    }
+
     const showReviews = () => {
         if (reviews.length === 0) {
             return (
@@ -33,8 +52,14 @@ export default function Reviews({listing}) {
                         review && review.comment ? (
                             <li key={index} className="review-item">
                                 <div className="review-meta">
-                                    <span></span>
-                                    <span>•</span>
+                                    <div className="review-author">
+                                        <div className="review-author-avatar">
+                                            {review.author.username.charAt(0)}
+                                        </div>
+                                        <div className="review-author-name">
+                                            {review.author.username}
+                                        </div>
+                                    </div>
                                     <div className="review-rating">
                                         {[...Array(5)].map((_, i) => (
                                             <span key={i} className="star">
@@ -44,6 +69,20 @@ export default function Reviews({listing}) {
                                     </div>
                                 </div>
                                 <p className="review-content">{review.comment}</p>
+                                {/* Only show delete button if the review belongs to the current user */}
+                                {user && user.id === review.author._id && (
+                                    <button 
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            deleteReview(review);
+                                        }} 
+                                        type="button" 
+                                        className="delete-review-button"
+                                    >
+                                        Delete
+                                    </button>
+                                )}
                             </li>
                         ) : (
                             <li key={index} className="review-item">
@@ -62,13 +101,8 @@ export default function Reviews({listing}) {
                 <h3>Reviews</h3>
                 <div className="reviews-rating">
                     <span className="star">★</span>
-                    <span>{listing.averageRating ? listing.averageRating.toFixed(1) : 'N/A'} • {reviews.length} reviews</span>
+                    <span>{listing.averageRating ? listing.averageRating : 'none'} &nbsp;• {reviews.length} reviews</span>
                 </div>
-                {user && user.username && (
-                    <div className="current-user">
-                        <p>Logged in as: <strong>{user.username}</strong></p>
-                    </div>
-                )}
             </div>
             <ReviewForm listing={listing} reviews={reviews} setReviews={setReviews}/>
             {showReviews()}
