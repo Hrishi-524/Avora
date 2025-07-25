@@ -172,20 +172,18 @@ export default function Navbar() {
                             <MenuItem onClick={() => { handleCloseNavMenu(); handleLogout(); }}>
                                 <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
                             </MenuItem>
-                        ) : (
-                            <>
-                                <MenuItem onClick={handleCloseNavMenu}>
-                                    <Link to="/login" style={{textDecoration:'none', color:'inherit', width:'100%'}}>
-                                        <Typography sx={{ textAlign: 'center' }}>Login</Typography>
-                                    </Link>
-                                </MenuItem>
-                                <MenuItem onClick={handleCloseNavMenu}>
-                                    <Link to="/signup" style={{textDecoration:'none', color:'inherit', width:'100%'}}>
-                                        <Typography sx={{ textAlign: 'center' }}>Sign Up</Typography>
-                                    </Link>
-                                </MenuItem>
-                            </>
-                        )}
+                        ) : [
+                            <MenuItem key="login" onClick={handleCloseNavMenu}>
+                                <Link to="/login" style={{textDecoration:'none', color:'inherit', width:'100%'}}>
+                                    <Typography sx={{ textAlign: 'center' }}>Login</Typography>
+                                </Link>
+                            </MenuItem>,
+                            <MenuItem key="signup" onClick={handleCloseNavMenu}>
+                                <Link to="/signup" style={{textDecoration:'none', color:'inherit', width:'100%'}}>
+                                    <Typography sx={{ textAlign: 'center' }}>Sign Up</Typography>
+                                </Link>
+                            </MenuItem>
+                        ]}
                     </Menu>
                 </Box>
                 <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>

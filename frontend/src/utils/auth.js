@@ -3,6 +3,9 @@ import { jwtDecode } from 'jwt-decode'
 
 // Set up axios interceptor to automatically include token in requests
 export const setupAxiosInterceptors = () => {
+    // Set base URL for axios
+    axios.defaults.baseURL = 'http://localhost:5000';
+    
     // Request interceptor to add token to headers
     axios.interceptors.request.use(
         (config) => {
@@ -47,7 +50,24 @@ export const getUserInfo = () => {
 // Check if user is authenticated
 export const isAuthenticated = () => {
     const token = localStorage.getItem('token');
-    return !!token;
+    if (!token) return false;
+    
+    try {
+        const decoded = jwtDecode(token);
+        const currentTime = Date.now() / 1000;
+        
+        // Check if token is expired
+        if (decoded.exp < currentTime) {
+            localStorage.removeItem('token');
+            return false;
+        }
+        
+        return true;
+    } catch (error) {
+        console.error('Invalid token:', error);
+        localStorage.removeItem('token');
+        return false;
+    }
 };
 
 // Get token from localStorage

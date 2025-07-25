@@ -6,7 +6,8 @@ import Box from '@mui/material/Box';
 import StarIcon from '@mui/icons-material/Star';
 import Button from '@mui/material/Button';
 import { sendReviewData } from '../../api/Reviews';
-import {getUserInfo} from "../../utils/auth.js";
+import {getUserInfo, isAuthenticated} from "../../utils/auth.js";
+import { useNavigate } from 'react-router-dom';
 
 const labels = {
   0.5: 'Worst',
@@ -29,15 +30,32 @@ function getLabelText(value) {
 export default function ReviewForm({listing, reviews,setReviews}) {
     const [value, setValue] = React.useState(2);
     const [hover, setHover] = React.useState(-1);
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        
+        // Check if user is authenticated
+        if (!isAuthenticated()) {
+            alert('Please log in to submit a review');
+            navigate('/login');
+            return;
+        }
+        
         const user = getUserInfo();
         console.log("this is user [ReviewForm.jsx] ", user);
+        
+        // Double check user info is valid
+        if (!user || !user.id) {
+            alert('Authentication error. Please log in again.');
+            navigate('/login');
+            return;
+        }
+        
         let formData = new FormData(e.target);
         let data = {
             comment : formData.get("comment"),
-            rating : formData.get("hover-feedback"),
+            rating : value, // Use the state value instead of form data
             listingId : listing._id,
             author : user.id,
         }
@@ -47,7 +65,26 @@ export default function ReviewForm({listing, reviews,setReviews}) {
             console.log("submitted new review [ReviewForm.jsx]")
             console.log(newReview)
             setReviews(prevReviews => [...prevReviews, newReview])
+            // Clear the form after successful submission
+            e.target.reset();
+            setValue(2);
         })
+        .catch((error) => {
+            console.error('Error submitting review:', error);
+            alert('Error submitting review. Please try again.');
+        })
+    }
+
+    // Don't show the form if user is not authenticated
+    if (!isAuthenticated()) {
+        return (
+            <div className="review-form">
+                <h4>Share Your Experience</h4>
+                <div className="login-prompt">
+                    <p>Please <a href="/login" onClick={(e) => { e.preventDefault(); navigate('/login'); }}>log in</a> to write a review.</p>
+                </div>
+            </div>
+        );
     }
 
     return (

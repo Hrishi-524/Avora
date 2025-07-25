@@ -1,0 +1,18 @@
+/* Import shared auth styles from Signup.css */
+@import './Signup.css';
+
+/* Login-specific customizations */
+.auth-container {
+    background: linear-gradient(135deg, var(--auth-gradient-end), var(--auth-gradient-start));
+}
+
+/* Slight variation in animation timing for login */
+.background-pattern {
+    animation: float 25s ease-in-out infinite;
+}
+
+/* Login page has slightly different gradient direction */
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(-1deg); }
+}

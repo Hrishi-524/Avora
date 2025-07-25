@@ -16,6 +16,7 @@ export default function Reviews({listing}) {
             setUser(userLoggedIn);
         }
     }, [])
+
     useEffect(() => {
         if (listing && listing.reviews) {
             setReviews(listing.reviews);
@@ -54,10 +55,10 @@ export default function Reviews({listing}) {
                                 <div className="review-meta">
                                     <div className="review-author">
                                         <div className="review-author-avatar">
-                                            {review.author.username.charAt(0)}
+                                            {review?.author?.username?.charAt(0)}
                                         </div>
                                         <div className="review-author-name">
-                                            {review.author.username}
+                                            {review?.author?.username}
                                         </div>
                                     </div>
                                     <div className="review-rating">
@@ -70,7 +71,7 @@ export default function Reviews({listing}) {
                                 </div>
                                 <p className="review-content">{review.comment}</p>
                                 {/* Only show delete button if the review belongs to the current user */}
-                                {user && user.id === review.author._id && (
+                                {user && user.id === review.author?._id && (
                                     <button 
                                         onClick={(e) => {
                                             e.preventDefault();

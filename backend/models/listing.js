@@ -39,7 +39,7 @@ const listingSchema = new Schema({
         type : Schema.Types.ObjectId,
         ref : 'Review',
     }],
-    avarageRating : {
+    averageRating : {
         type : Number,
         default : 3,
     }

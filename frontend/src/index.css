@@ -53,6 +53,16 @@
   --accent-gold-light: hsl(45, 100%, 90%);
   --accent-emerald: hsl(142, 76%, 36%);
   --accent-emerald-light: hsl(142, 76%, 90%);
+  
+  /* Auth page specific colors */
+  --auth-gradient-start: hsl(148, 42%, 40%);
+  --auth-gradient-end: hsl(210, 70%, 45%);
+  --auth-card-bg: hsl(0 0% 100%);
+  --auth-input-border: hsl(0 0% 85%);
+  --auth-input-focus: hsl(148, 42%, 40%);
+  --auth-text-light: hsl(0 0% 40%);
+  --auth-link: hsl(210, 70%, 45%);
+  --auth-link-hover: hsl(210, 70%, 30%);
 }
 
 * {
@@ -86,6 +96,14 @@ body.dark {
   --card-bg: hsl(0 0% 10%);
   --card-shadow: 0 4px 12px hsla(0, 0%, 0%, 0.3);
   --card-shadow-hover: 0 8px 24px hsla(0, 0%, 0%, 0.4);
+  
+  /* Dark mode auth colors */
+  --auth-card-bg: hsl(0 0% 12%);
+  --auth-input-border: hsl(0 0% 25%);
+  --auth-input-focus: hsl(148, 42%, 50%);
+  --auth-text-light: hsl(0 0% 60%);
+  --auth-link: hsl(210, 70%, 60%);
+  --auth-link-hover: hsl(210, 70%, 80%);
 }
 
 body {

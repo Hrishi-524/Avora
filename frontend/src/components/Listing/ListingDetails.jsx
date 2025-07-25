@@ -10,8 +10,7 @@ export default function ListingDetails({listing}) {
                     <div className="host-info">
                         <h5>Hosted by {listing.host.username}</h5>
                         <p>
-                            <span className="host-rating">★ {listing.hostRating ? listing.hostRating.toFixed(1) : 'none'}</span>
-                            <span>• {listing.host.totalReviews || 0} reviews</span>
+                            <span>Host since {new Date(listing.host.createdAt).getFullYear() || 'recently'}</span>
                         </p>
                     </div>
                 </div>
@@ -30,24 +29,24 @@ export default function ListingDetails({listing}) {
                         Reserve Now
                     </button>
 
-                    <div className="booking-info">
-                        <div className="booking-info-item">
-                            <span>₹{listing.price} × 1 night</span>
-                            <span>₹{listing.price}</span>
-                        </div>
-                        <div className="booking-info-item">
-                            <span>Service fee</span>
-                            <span>₹{Math.round(listing.price * 0.1)}</span>
-                        </div>
-                        <div className="booking-info-item">
-                            <span>Taxes</span>
-                            <span>₹{Math.round(listing.price * 0.12)}</span>
-                        </div>
-                        <div className="booking-info-item total">
-                            <span>Total</span>
-                            <span>₹{Math.round(listing.price * 1.22)}</span>
-                        </div>
-                    </div>
+                    {/*<div className="booking-info">*/}
+                    {/*    <div className="booking-info-item">*/}
+                    {/*        <span>₹{listing.price} × 1 night</span>*/}
+                    {/*        <span>₹{listing.price}</span>*/}
+                    {/*    </div>*/}
+                    {/*    <div className="booking-info-item">*/}
+                    {/*        <span>Service fee</span>*/}
+                    {/*        <span>₹{Math.round(listing.price * 0.1)}</span>*/}
+                    {/*    </div>*/}
+                    {/*    <div className="booking-info-item">*/}
+                    {/*        <span>Taxes</span>*/}
+                    {/*        <span>₹{Math.round(listing.price * 0.12)}</span>*/}
+                    {/*    </div>*/}
+                    {/*    <div className="booking-info-item total">*/}
+                    {/*        <span>Total</span>*/}
+                    {/*        <span>₹{Math.round(listing.price * 1.22)}</span>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         </div>

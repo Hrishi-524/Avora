@@ -22,16 +22,19 @@ export const saveReviewData = async (req, res) => {
     await newReview.save();
     await listing.save();
 
-    let populatedListing = await Listings.findById(id).populate("reviews").populate("host");
-    let latestReview = await populatedListing.reviews[populatedListing.reviews.length - 1].populate("author");
-    console.log("latest review")
-    console.log(latestReview)
+    // Populate the new review with author information before sending back
+    let populatedReview = await Review.findById(newReview._id).populate("author");
+    console.log("New review with populated author:");
+    console.log(populatedReview);
 
+    // Update average rating
     let previousSum = listing.averageRating * (listing.reviews.length - 1);
-    let newTotalRating = previousSum + latestReview.rating;
+    let newTotalRating = previousSum + parseInt(rating);
     let totalReviews = listing.reviews.length;
     listing.averageRating = newTotalRating / totalReviews;
-    res.json(latestReview);
+    await listing.save();
+    
+    res.json(populatedReview);
 }
 
 export const deleteReview = async (req, res) => {
