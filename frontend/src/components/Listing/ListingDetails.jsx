@@ -28,25 +28,6 @@ export default function ListingDetails({listing}) {
                     <button className="booking-button">
                         Reserve Now
                     </button>
-
-                    {/*<div className="booking-info">*/}
-                    {/*    <div className="booking-info-item">*/}
-                    {/*        <span>₹{listing.price} × 1 night</span>*/}
-                    {/*        <span>₹{listing.price}</span>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="booking-info-item">*/}
-                    {/*        <span>Service fee</span>*/}
-                    {/*        <span>₹{Math.round(listing.price * 0.1)}</span>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="booking-info-item">*/}
-                    {/*        <span>Taxes</span>*/}
-                    {/*        <span>₹{Math.round(listing.price * 0.12)}</span>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="booking-info-item total">*/}
-                    {/*        <span>Total</span>*/}
-                    {/*        <span>₹{Math.round(listing.price * 1.22)}</span>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
                 </div>
             </div>
         </div>

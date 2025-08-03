@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 import { sendSignupData, redirectToHome } from '../api/user';
+//css file
 import './Signup.css'
-import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
+//various icons for signup form
 import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
@@ -10,9 +11,15 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 export default function Signup() {
+    //useNavigate from react router to redierct to home after login/signup
     const navigate = useNavigate();
+
+    //STATE VARIABLES 
+    //until user clicks on eye icon dont show password
     const [showPassword, setShowPassword] = useState(false);
+    //onSubmit may take time to prevent multiple submits we use this state
     const [isLoading, setIsLoading] = useState(false);
+    //if there is an error in submitting the form store in react state to show it on page
     const [error, setError] = useState('');
     
     const handleSubmit = async (e) => {
@@ -21,6 +28,7 @@ export default function Signup() {
         setError('');
         
         try {
+            //extract formData from Form and store it in a object
             const formData = new FormData(e.target);
             const signupData = {
                 username: formData.get('username'),
@@ -29,19 +37,28 @@ export default function Signup() {
                 isHost: false,
             }
             
+            //in case user is trying to submit without providing username/email/passoword notify with error
             if (!signupData.username || !signupData.email || !signupData.password) {
                 setError('Please fill in all fields');
                 setIsLoading(false);
                 return;
             }
             
+            //finally send the data with sendSignupData 
+            // POST : /api/signup
             const response = await sendSignupData(signupData);
+
+            //get token from JWT response 
             const token = response.data.token;
+
+            //redirect to the home page
             await redirectToHome(token, navigate);
         } catch (error) {
+            //in any error cases handle error
             console.error('Signup error:', error);
             setError(error.response?.data?.error || 'Signup failed. Please try again.');
         } finally {
+            //finally set loading to false
             setIsLoading(false);
         }
     }
@@ -55,14 +72,14 @@ export default function Signup() {
             <div className='auth-content'>
                 <div className='auth-card'>
                     <div className='auth-header'>
-                        <div className='logo'>
-                            <MapOutlinedIcon className='logo-icon' />
-                            <h2>Wanderlust</h2>
-                        </div>
                         <h1>Create Account</h1>
-                        <p className='auth-subtitle'>Start your journey with us today</p>
+                        <p className='auth-subtitle'>Start Your Journey With Wanderlust</p>
                     </div>
                     
+                    {/**
+                     * This is signup form (username, email, set passowrd) 
+                     * if you alredy have an account it can redirect you to login page
+                     */}
                     <form onSubmit={handleSubmit} className='auth-form'>
                         {error && <div className='error-message'>{error}</div>}
                         

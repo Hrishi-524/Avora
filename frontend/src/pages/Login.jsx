@@ -2,12 +2,15 @@ import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom';
 import { verifyLoginData, redirectToHome } from '../api/user';
 import './Login.css'
-import MapOutlinedIcon from '@mui/icons-material/MapOutlined';
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
+/** 
+ *  VERY SIMILAR TO SIGNUP IN CASE OF SIGNIN/LOGIN WE VERIFY THE DATA(USERNAME AND PASSOWRD)
+ *  verifyLoginData() sends POST : /api/login
+ */
 export default function Login() {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
@@ -31,8 +34,10 @@ export default function Login() {
                 setIsLoading(false);
                 return;
             }
-
+            
+            //POST : /api/login
             const response = await verifyLoginData(loginData);
+
             const token = response.data.token;
             await redirectToHome(token, navigate);
         } catch (error) {
@@ -52,12 +57,8 @@ export default function Login() {
             <div className='auth-content'>
                 <div className='auth-card'>
                     <div className='auth-header'>
-                        <div className='logo'>
-                            <MapOutlinedIcon className='logo-icon' />
-                            <h2>Wanderlust</h2>
-                        </div>
                         <h1>Welcome Back</h1>
-                        <p className='auth-subtitle'>Sign in to continue your journey</p>
+                        <p className='auth-subtitle'>Provide Username and Password to Conitinue</p>
                     </div>
                     
                     <form onSubmit={handleSubmit} className='auth-form'>

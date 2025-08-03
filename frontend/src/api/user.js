@@ -3,11 +3,13 @@ import { fetchListings } from './listings';
 import { setToken } from '../utils/auth';
 
 export const sendSignupData = async (signupData) => {
+    //POST : /api/signup
     const response = await axios.post("/api/signup", signupData);
     return response; // Return full response
 }
 
 export const verifyLoginData = async (loginData) => {
+    //POST : /api/login
     const response = await axios.post("/api/login", loginData);
     return response;
 }

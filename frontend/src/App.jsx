@@ -13,13 +13,13 @@ function App() {
     }, []);
     return (
         <>
-        <Routes>
-            <Route path='/' element={<Home/>}/>
-            <Route path="/listings" element={<Home/>}/>
-            <Route path="/listings/:id" element={<Listing/>}/>
-            <Route path="/signup" element={<Signup />}></Route>
-            <Route path="/login" element={<Login />}></Route>
-        </Routes>
+            <Routes>
+                <Route path='/' element={<Home/>}/>
+                <Route path="/listings" element={<Home/>}/>
+                <Route path="/listings/:id" element={<Listing/>}/>
+                <Route path="/signup" element={<Signup />}></Route>
+                <Route path="/login" element={<Login />}></Route>
+            </Routes>
         </>
     )
 }

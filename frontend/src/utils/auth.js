@@ -8,6 +8,7 @@ export const setupAxiosInterceptors = () => {
     
     // Request interceptor to add token to headers
     axios.interceptors.request.use(
+        //onRequestSuccess
         (config) => {
             const token = localStorage.getItem('token');
             if (token) {
@@ -15,6 +16,7 @@ export const setupAxiosInterceptors = () => {
             }
             return config;
         },
+        //onRequestFaliure
         (error) => {
             return Promise.reject(error);
         }
@@ -22,7 +24,9 @@ export const setupAxiosInterceptors = () => {
 
     // Response interceptor to handle token expiration
     axios.interceptors.response.use(
+        //onResponseSuccess
         (response) => response,
+        //onResponseFaliure
         (error) => {
             if (error.response?.status === 401) {
                 // Token expired or invalid
@@ -47,6 +51,7 @@ export const getUserInfo = () => {
         return null;
     }
 }
+
 // Check if user is authenticated
 export const isAuthenticated = () => {
     const token = localStorage.getItem('token');

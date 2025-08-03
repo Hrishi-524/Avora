@@ -5,8 +5,9 @@ import bcrypt, { hash } from 'bcrypt';
 import Listing from '../models/Listing.js';
 
 export const signupUser = async (req, res) => {
+    //sign up user who submitted form with (username, email, passowrd)
     try {
-        const {username, email, password, isHost} = req.body;
+        const {username, email, password} = req.body;
 
         //hash password
         const saltRounds = 10;
@@ -17,7 +18,7 @@ export const signupUser = async (req, res) => {
             username : username,
             email : email,
             password : hash,
-            isHost : isHost,
+            isHost : false,
         })
 
         await newUser.save();
@@ -37,18 +38,21 @@ export const signupUser = async (req, res) => {
 }
 
 export const verifyLogin = async (req, res) => {
+    //sign in user who submitted username and password , verify credentials
     try {
         const {username, password} = req.body;
         
+        //find if this unique username exists
         const user = await User.findOne({ username })
 
         if(!user) {
             return res.status(401).json({ error : "Invalid username or password"});
         }
 
+        //to check passowrd match : verify using JWT use compare function to compare passowrds
         const isVerified = await bcrypt.compare(password, user.password);
+        //if credentials are correct create access token 
         if(isVerified) {
-
             const token = jwt.sign({
                 id : user._id,
                 username : user.username,
@@ -56,8 +60,10 @@ export const verifyLogin = async (req, res) => {
                 expiresIn : '7h',
             });
 
+            //return token so that we can store in frontend localstorage
             res.status(200).json({ token });
         } else {
+        //credentials are not correct return error
             res.status(401).json({ error: "Invalid username or password" });
         }
     } catch (error) {
