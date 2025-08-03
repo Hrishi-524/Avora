@@ -1,0 +1,46 @@
+.payment-container {
+    max-width: 500px;
+    margin: 100px auto;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: sans-serif;
+    background-color: #f9f9f9;
+}
+
+.success-text {
+    color: green;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.error-text {
+    color: red;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.payment-details {
+    text-align: left;
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.home-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.home-button:hover {
+    background-color: #0056b3;
+}

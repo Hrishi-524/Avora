@@ -42,9 +42,15 @@ app.use(express.urlencoded({ extended: true }));
 import listingRouter from './routes/listing.js';
 import reviewRouter from './routes/review.js';
 import userRouter from './routes/user.js';
+import bookingRouter from './routes/booking.js'
+import paymentRouter from './routes/payment.js'
 
 app.use("/api", userRouter);
 
 app.use("/api/listings", listingRouter);
 
 app.use("/api/listings/:id/reviews", reviewRouter);
+
+app.use("/api/listings/:id/book", bookingRouter);
+
+app.use("/api/payment", paymentRouter);
