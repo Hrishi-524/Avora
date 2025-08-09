@@ -33,7 +33,7 @@ export default function Listing() {
         <div className="listing">
             <div className="image-comp">
                 <ImageCarousel listing={listing}/>
-                <h2>{listing.title}</h2>
+                <h1>{listing.title}</h1>
             </div>  
             <div className="info">
                 <ListingDetails listing={listing} />

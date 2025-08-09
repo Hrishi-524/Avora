@@ -9,11 +9,11 @@
     display: flex;
     align-items: center;
     padding: 0.5rem;
-    background: var(--card-bg);
+    background: var(--accent-gold-light);
     border-radius: var(--card-border-radius);
     box-shadow: var(--card-shadow);
-    border: 1px solid black;
-    border-bottom: 2px solid black;
+    border: 2px solid black;
+    border-bottom: 3px solid black;
     transition: all 0.3s ease;
 }
 
@@ -59,7 +59,7 @@
     background: var(--card-bg);
     border-radius: var(--card-border-radius);
     box-shadow: var(--card-shadow);
-    border: 1px solid var(--border-muted);
+    border: 2px solid black;
     line-height: 1.6;
 }
 

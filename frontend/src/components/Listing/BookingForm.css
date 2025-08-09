@@ -3,7 +3,7 @@
     background: var(--card-bg);
     border-radius: var(--card-border-radius);
     box-shadow: var(--card-shadow);
-    border: 1px solid var(--border-muted);
+    border: 2px solid black;
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
@@ -62,6 +62,7 @@ input[type="number"]:focus {
     text-transform: none;
     font-size: 1rem;
     margin-top: 2rem;
+    border: 2px solid black;
 }
 
 .booking-button:hover {

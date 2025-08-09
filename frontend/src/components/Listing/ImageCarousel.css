@@ -1,1 +1,57 @@
-/* Styles moved to Material-UI sx prop in ImageCarousel.jsx */
+.image-carousel {
+  position: relative;
+  width: 100%;
+  max-width: 80rem;        /* tweak as needed */
+  height: var(--carousel-height, 30rem);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;     /* allows nicer 3D transforms if you add rotateY */
+  overflow: visible;       /* so peeking images are visible */
+}
+
+/* The individual images (absolutely positioned & centered) */
+.carousel-img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--img-size, 50rem);
+  height: var(--img-size, 25rem);
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.18);
+  transition: transform 500ms cubic-bezier(.2,.8,.2,1), opacity 300ms;
+  will-change: transform, opacity;
+  cursor: pointer;
+  border: 2.5px solid black;
+  border-bottom: 3.5px solid black;
+}
+
+/* Active / front image */
+.carousel-img.active {
+  box-shadow: 0 25px 40px rgba(0,0,0,0.35);
+  pointer-events: auto;
+}
+
+/* Buttons (basic) */
+.carousel-btn {
+  position: absolute;
+  bottom: 0.6rem;
+  background: rgba(255,255,255,0.95);
+  border: none;
+  padding: 0.45rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  user-select: none;
+}
+
+.carousel-btn.prev { left: 1rem; }
+.carousel-btn.next { right: 1rem; }
+
+/* Responsive tweak */
+@media (max-width: 640px) {
+  .image-carousel { height: 14rem; }
+  .carousel-img { width: 16rem; height: 16rem; }
+}

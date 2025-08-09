@@ -50,7 +50,7 @@ export default function Reviews({listing}) {
             return (
                 <ul className="reviews-list">
                     {reviews.map((review, index) =>
-                        review && review.comment ? (
+                        review && review.comment && index <= 5 ? (
                             <li key={index} className="review-item">
                                 <div className="review-meta">
                                     <div className="review-author">
@@ -107,6 +107,9 @@ export default function Reviews({listing}) {
             </div>
             <ReviewForm listing={listing} reviews={reviews} setReviews={setReviews}/>
             {showReviews()}
+            {
+                reviews.length > 5 &&  <button className="delete-review-button">Load more Reviews</button>
+            }
         </div>
     )
 }
