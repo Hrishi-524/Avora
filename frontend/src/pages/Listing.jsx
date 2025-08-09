@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState , Suspense, lazy} from 'react';
 import { useParams } from 'react-router-dom'
 import './Listing.css'
 import { fetchListingById } from '../api/listings';
 import ImageCarousel from '../components/Listing/ImageCarousel';
 import ListingDetails from '../components/Listing/ListingDetails';
 import Reviews from '../components/Listing/Reviews';
+import Map from '../components/Listing/Map';
 
 export default function Listing() {
     let [listing, setListing] = useState({});
@@ -38,6 +39,9 @@ export default function Listing() {
             <div className="info">
                 <ListingDetails listing={listing} />
                 <Reviews listing={listing} />
+                <Suspense fallback={<div>Loading map...</div>}>
+                    <Map listing={listing}/>
+                </Suspense>
             </div>
         </div>
     )
