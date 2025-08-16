@@ -45,3 +45,26 @@ nav.MuiAppBar-root {
   background-repeat: no-repeat;
   z-index: -1;
 }
+
+.cards-collection-out {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  padding: 1rem;
+}
+
+.card-div-out {
+    display: flex;
+    justify-content: center;
+    max-width: 270px;
+    padding: 0;
+}
+
+.listings-out {
+  background-color: var(--bg-light);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 0;
+}

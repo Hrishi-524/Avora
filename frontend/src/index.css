@@ -18,6 +18,7 @@
   --bg: hsl(0 0% 100%);
   --bg-light: hsl(0 0% 96%);
   --bg-dark: hsl(0 0% 90%);
+  --bg-dusky: hsl(0 0% 85%);
   
   --text: hsl(0 0% 10%);
   --text-muted: hsl(0 0% 40%);
