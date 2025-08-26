@@ -1,7 +1,7 @@
 import express from "express"
 const router = express.Router({ mergeParams: true });
-import { renderHomePage, renderListingById, searchListings } from "../controllers/listing.js";
-import { isLoggedIn } from "../middleware.js";
+import { createListing, destroyListing, renderHomePage, renderListingById, searchListings } from "../controllers/listing.js";
+import { isLoggedIn, upload } from "../middleware.js";
 
 router.route("/")
 .get(renderHomePage)
@@ -11,5 +11,11 @@ router.route("/:id")
 
 router.route("/search")
 .post(searchListings)
+
+router.route("/new")
+.post(isLoggedIn, upload.array("images", 10), createListing)
+
+router.route("/delete")
+.delete(isLoggedIn, destroyListing)
 
 export default router;

@@ -49,3 +49,15 @@ export const inititateBooking = async (bookingDetails) => {
         alert(err.response?.data?.message || "Booking failed. Try again.");
     }
 }
+
+export const fetchUserBookings = async (id) => {
+    const res = await axios.get(`/api/bookings/${id}`);
+    console.log(res.data.userBookings)
+    return res.data.userBookings;   // so Profile.jsx gets just the array
+};
+
+export const fetchHostListings = async (id) => {
+    const res = await axios.get(`/api/host/${id}`)
+    console.log(res.data.hostListings)
+    return res.data.hostListings
+}

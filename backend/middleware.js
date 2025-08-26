@@ -1,10 +1,11 @@
 import jwt from 'jsonwebtoken';
+import multer from "multer";
+import { storage } from './cloudConfig.js';
 
 export const isLoggedIn = (req, res, next) => {
     try {
         // Get token from Authorization header
         const authHeader = req.headers.authorization;
-        console.log("Middleware ---")
         console.log(authHeader)
         
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -24,3 +25,5 @@ export const isLoggedIn = (req, res, next) => {
         res.status(401).json({ error: "Invalid token" });
     }
 }
+
+export const upload = multer({ storage });

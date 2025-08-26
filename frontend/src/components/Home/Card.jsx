@@ -14,7 +14,7 @@ export default function Card({listing}) {
         <MUICard className='mui-card-div'>
             <Link to={`/listings/${listing._id}`} style={{textDecoration:'none', color:'inherit'}}>
                 <CardActionArea>
-                    <CardMedia component="img" height="200" image={listing.images[0].url} alt={`${listing.title} image`}
+                    <CardMedia component="img" height="200" image={listing?.images[0]?.url} alt={`${listing.title} image`}
                         sx={{ borderRadius:'12px'}}
                     />
                         <CardContent>

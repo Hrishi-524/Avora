@@ -47,6 +47,17 @@
     font-size: 1.5rem;
 }
 
+
+/* Filled stars */
+.review-form .MuiRating-iconFilled {
+  color: var(--accent-gold) !important;
+}
+
+/* Empty stars */
+.review-form .MuiRating-iconEmpty {
+  color: var(--bg-dark) !important;
+}
+
 .rating-label {
     font: var(--p2-bold);
     color: var(--text-muted);

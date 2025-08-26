@@ -1,4 +1,4 @@
-import './ListingDetails.css'
+import './listingDetails.css'
 import Avatar from '@mui/material/Avatar';
 import BookingForm from './BookingForm.jsx';
 

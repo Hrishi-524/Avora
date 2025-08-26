@@ -1,80 +1,453 @@
-.nav-logo {
-  display: flex;
+/* Navbar Base */
+.navbar {
+    position: sticky;
+    top: 0;
+    background-color: transparent;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    overflow: hidden;
 }
 
-.transperent-navbar {
-  position: sticky;
-  top: 0;
-  background-color: transparent;
-  transition: background-color 0.2s ease;
-  overflow: hidden;
-  will-change: background-color;
-  z-index: 1000; /* Ensure navbar stays on top */
+/* Hover Effect - White Background Drop Down */
+.navbar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-100%);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: -1;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
-.transperent-navbar::before {
-  content: "";
-  position: absolute;
-  top: -100%;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-  z-index: -1;
-  transition: transform 0.2s ease;
-  transform: translateY(0);
-  will-change: transform;
+.navbar:hover::before,
+.navbar.scrolled::before {
+    transform: translateY(0);
 }
 
-.transperent-navbar:hover::before {
-  transform: translateY(100%);
+/* When scrolled, also change text colors immediately */
+.navbar.scrolled .nav-link {
+    color: var(--text);
+    text-shadow: none;
 }
 
-.transperent-navbar:hover .nav-link {
-  color: black !important;
+.navbar.scrolled .navbar-logo {
+    color: var(--text);
 }
 
-/* Logo Styling */
-.logo {
-  display: flex;
-  align-items: center;
-  background-color: var(--primary);
-  padding: 0.3rem 0.6rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s ease;
-  will-change: transform;
+.navbar.scrolled .brand-name {
+    background: var(--primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: none;
 }
 
-.logo:hover {
-  transform: scale(1.05);
+.navbar.scrolled .brand-tagline {
+    background: var(--primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: none;
 }
 
-/* Nav link styling */
+.navbar.scrolled .login-btn {
+    color: var(--text);
+    border-color: var(--border);
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.navbar.scrolled .mobile-toggle {
+    color: var(--text);
+}
+
+/* Container */
+.navbar-container {
+    margin: 0 auto;
+    padding: 1rem 2rem 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Left Section - Logo + Nav Links */
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+/* Right Section - Auth Buttons */
+.navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Logo */
+.navbar-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    transition: color 0.3s ease;
+}
+
+.navbar:hover .navbar-logo {
+    color: var(--text);
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo-icon {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    background: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 0 3px rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.logo-icon:hover {
+    transform: rotate(15deg) scale(1.05);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4), 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.compass-ring {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    border-top-color: rgba(255, 255, 255, 0.4);
+    border-right-color: rgba(255, 255, 255, 0.4);
+}
+
+.compass-needle {
+    position: absolute;
+    width: 12px;
+    height: 2px;
+    background: white;
+    border-radius: 1px;
+    transform-origin: center;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+}
+
+.compass-needle::before {
+    content: '';
+    position: absolute;
+    right: -2px;
+    top: -1px;
+    width: 0;
+    height: 0;
+    border-left: 4px solid white;
+    border-top: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.brand-name {
+    font: var(--h4);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    background: var(--primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.3));
+}
+
+.navbar:hover .brand-name {
+    background: var(--primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: none;
+}
+
+.brand-tagline {
+    font: var(--p2);
+    font-size: 0.7rem;
+    opacity: 0.9;
+    background: var(--primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.3));
+}
+
+.navbar:hover .brand-tagline {
+    background: var(--primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: none;
+}
+
+/* Desktop Menu */
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
 .nav-link {
-  color:var(--text);
-  font-weight: bold;
-  text-transform: uppercase;
-  transition: color 0.2s ease;
-  will-change: color;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font: var(--p2-bold);
+    text-transform: capitalize;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-.nav-hero-wrap {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
+.navbar:hover .nav-link {
+    color: var(--text);
+    text-shadow: none;
 }
 
-.nav-hero-wrap::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url('/hotel.webp');
+.nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-1px);
+}
 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: -1;
-  filter: brightness(0.95); /* optional */
+.navbar:hover .nav-link:hover {
+    background: var(--bg-light);
+}
+
+/* Auth Section */
+.navbar-auth {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.auth-btn {
+    padding: 0.6rem 1.5rem;
+    border-radius: 25px;
+    font: var(--p2-bold);
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.auth-btn:hover::before {
+    left: 100%;
+}
+
+.login-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.signup-btn {
+    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.8));
+    color: var(--text);
+    border: 2px solid transparent;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.logout-btn {
+    background: linear-gradient(135deg, var(--danger), #d32f2f);
+    color: white;
+    border: 2px solid transparent;
+    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+}
+
+.navbar:hover .login-btn {
+    color: var(--text);
+    border-color: var(--border);
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.login-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.navbar:hover .login-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.signup-btn:hover {
+    background: linear-gradient(135deg, white, rgba(255,255,255,0.95));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+}
+
+.logout-btn:hover {
+    background: linear-gradient(135deg, #d32f2f, var(--danger));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(244, 67, 54, 0.4);
+}
+
+/* Host Button */
+.host-btn {
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 25px;
+    font: var(--p2-bold);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+}
+
+.host-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.host-btn:hover::before {
+    left: 100%;
+}
+
+.host-btn:hover {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(72, 187, 120, 0.4);
+}
+
+/* Mobile Toggle */
+.mobile-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: color 0.3s ease;
+}
+
+.navbar:hover .mobile-toggle {
+    color: var(--text);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid var(--border-muted);
+    padding: 1rem;
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+.mobile-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.mobile-link {
+    color: var(--text);
+    text-decoration: none;
+    font: var(--p2-bold);
+    padding: 0.75rem;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+    text-transform: capitalize;
+}
+
+.mobile-link:hover {
+    background: var(--bg-light);
+}
+
+.mobile-auth {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-muted);
+}
+
+.auth-btn.mobile,
+.host-btn.mobile {
+    width: 100%;
+    text-align: center;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .navbar-left .navbar-menu,
+    .navbar-right .navbar-auth {
+        display: none;
+    }
+
+    .mobile-toggle {
+        display: block;
+    }
+
+    .navbar-container {
+        padding: 1rem;
+    }
+
+    .navbar-left {
+        gap: 1rem;
+    }
 }

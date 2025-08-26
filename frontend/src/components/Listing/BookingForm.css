@@ -25,6 +25,17 @@ input[type="number"] {
   outline: none;
 }
 
+input[type="date"] {
+    width: '100%';
+    padding: '0.75rem';
+    font-size: '1rem';
+    border: '2px solid black';
+    border-radius: '8px';
+    outline: 'none';
+    box-sizing: 'border-box';
+    transition: 'border-color 0.3s ease';
+}
+
 input[type="number"]:focus {
   border-color: hsl(148, 42%, 40%);
   box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);

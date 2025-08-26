@@ -29,7 +29,7 @@
   --border: hsl(0 0% 85%);
   --border-muted: hsl(0 0% 92%);
   
-  --primary: hsl(148, 42%, 40%);   /* Earthy Green */
+  --primary: hsl(148, 42%, 27%);   /* Earthy Green */
   --primary-light: hsl(148, 42%, 85%);
   --primary-dark: hsl(148, 42%, 25%);
   --unprimary: hsl(150 80% 85%);

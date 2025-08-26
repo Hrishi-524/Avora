@@ -27,6 +27,9 @@ const userSchema = new Schema({
     },
     hostRating : {
         type : Number,
+    }, 
+    personalContact : {
+        type: Number,
     }
 })
 

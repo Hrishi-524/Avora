@@ -3,6 +3,7 @@ import User from "../models/User.js";
 import jwt from 'jsonwebtoken';
 import bcrypt, { hash } from 'bcrypt';
 import Listing from '../models/Listing.js';
+import Booking from '../models/Booking.js';
 
 export const signupUser = async (req, res) => {
     //sign up user who submitted form with (username, email, passowrd)
@@ -70,3 +71,65 @@ export const verifyLogin = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 }
+
+export const fetchUserDetails = async (req, res) => {
+    try {
+        const { id } = req.params
+        const userDetails = await User.findById(id);
+        console.log(userDetails)
+        res.status(201).json({
+            userDetails,
+        })
+    } catch (error) {
+        res.status(500).json({
+            error: error.message,
+            message : 'failed to fetch user! Internal server error 500'
+        })
+    }
+}
+
+export const fetchUserBookings = async (req, res) => {
+    try {
+        const { id } = req.params
+        const userBookings = await Booking.find({ user: id }).populate("listing").populate("user");
+        console.log(userBookings)
+        res.status(201).json({
+            success : true,
+            userBookings,
+        })
+    } catch (error) {
+        console.error("Error in fetcing user bookings", error);
+        const message = error?.error?.description || "Failed to fetch bookings";
+
+        res.status(500).json({
+            success: false,
+            message: message,
+        })
+    }
+}  
+
+export const fetchHostListings = async (req, res) => {
+    try {
+        const { id } = req.params;
+        
+        const hostListings = await Listing.find({ host: id })
+            .populate({
+                path: "host",
+                select: "username profileImage hostRating"
+            })
+            .populate("reviews");  // Simple populate without nested user
+
+        res.status(200).json({
+            success: true,
+            count: hostListings.length,
+            hostListings,
+        });
+    } catch (error) {
+        console.error("Error in fetching host listings", error);
+        
+        res.status(500).json({
+            success: false,
+            message: error.message || "Failed to fetch host listings",
+        });
+    }
+};

@@ -1,7 +1,21 @@
+import './Footer.css';
+
 export default function Footer() {
-    return (
-        <>
-        <h2>This is footer</h2>
-        </>
-    )
+  return (
+    <footer className="footer">
+      <div className="footer-container">
+        <h2 className="footer-logo">Wanderlust</h2>
+        <p className="footer-tagline">Explore. Book. Travel.</p>
+
+        <ul className="footer-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/bookings">Bookings</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+
+        <p className="footer-copy">© 2025 Wanderlust. All rights reserved.</p>
+      </div>
+    </footer>
+  );
 }

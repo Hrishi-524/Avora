@@ -49,7 +49,7 @@ export default function Home() {
                     ) : 
                     listings
                 } 
-                title={searchResults ? "Other Beautiful Places" : "Not sure where to ? Surf Beautiful Places Here"}
+                title={searchResults ? "Other Beautiful Places" : "surf beautiful and inspiring listings"}
             />
             <Footer />
         </div>

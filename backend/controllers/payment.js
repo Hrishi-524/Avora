@@ -11,9 +11,9 @@ export const verifyPayment = async (req, res) => {
     if (generated_signature === razorpay_signature) {
         const newBooking = new Booking({
             user: userId,
-            listingId,
-            checkin: checkIn,  
-            checkout: checkOut,
+            listing : listingId,
+            checkIn: checkIn,  
+            checkOut: checkOut,
             numberOfGuests: guestCount, 
             razorpayPaymentId: razorpay_payment_id,
             razopayOrderId : razorpay_order_id,

@@ -31,7 +31,7 @@ nav.MuiAppBar-root {
   width: 100%;
   z-index: 0;
   overflow: hidden;
-  margin-top: -80px; /* Offset navbar height, adjust as needed */
+  margin-top: -87px; /* Offset navbar height, adjust as needed */
   padding-top: 80px; /* Add padding to prevent content overlap */
 }
 
@@ -39,7 +39,7 @@ nav.MuiAppBar-root {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url('/villa.webp');
+  background-image: url('/travel.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

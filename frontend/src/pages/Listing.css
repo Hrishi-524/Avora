@@ -6,6 +6,7 @@
     margin: 2rem auto;
     padding: 0 1rem;
     min-height: 100vh;
+    /* background: linear-gradient(135deg, var(--auth-gradient-start) 0%,  var(--auth-gradient-end) 100%); */
 }
 
 

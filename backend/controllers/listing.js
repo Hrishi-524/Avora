@@ -1,4 +1,5 @@
 import Listing from "../models/Listing.js";
+import User from "../models/User.js";
 
 export const renderHomePage = async (req, res) => {
     try {
@@ -58,3 +59,61 @@ export const searchListings = async (req, res) => {
     }
 }
 
+export const createListing = async (req, res) => {
+    try {
+        const user = await User.findOne({username : req.body.host})
+        const imageUrls = req.files.map(file => file.path)
+        const imageObjects = req.files.map(file => ({
+            filename: file.filename || file.originalname,  
+            featured: false, 
+            url: file.path,  
+        }))
+
+        const newListing = new Listing({
+            ...req.body,
+            host : user._id,
+            images: imageObjects,
+        })
+
+        if(!user.isHost) {
+            user.isHost = true;
+            await user.save();
+        }
+
+        console.log('---------------NEW LISTING-------------------')
+        console.log(newListing)
+        await newListing.save()
+
+        const populatedListing = (await newListing.populate("host")).populate("reviews")
+        
+        res.status(201).json({
+            populatedListing,
+        })
+    } catch (error) {
+        console.error('Create Listing Failed :', error);
+        res.status(500).json({
+            success: false,
+            message: 'create failed',
+            error: error.message
+        });
+    }
+}
+
+export const destroyListing = async (req, res) => {
+    try {
+        const { id } = req.params
+        const deletedListing = await Listing.findByIdAndDelete(id)
+        res.status(200).json({
+            success: true,
+            message: 'destroy success',
+            deletedListing,
+        })
+    } catch (error) {
+        console.error('Destroy Listing Failed :', error);
+        res.status(500).json({
+            success: false,
+            message: 'destroy failed',
+            error: error.message
+        });
+    }
+}

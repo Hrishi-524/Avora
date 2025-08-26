@@ -25,3 +25,14 @@ export const redirectToHome = async (token, navigate) => {
         navigate('/');
     }
 }
+
+export const fetchUserProfile = async (id) => {
+    try {
+        console.log('axios/user checkpoint')
+        const response = await axios.get(`/api/user/${id}`)
+        return response
+    } catch (error) {
+        console.log('error in fetching user', error)
+        throw error;
+    }
+}

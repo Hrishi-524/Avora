@@ -40,60 +40,57 @@ export default function Reviews({listing}) {
     }
 
     const showReviews = () => {
-        if (reviews.length === 0) {
+        const validReviews = reviews.filter(review => review && review.comment);
+        const displayedReviews = validReviews.slice(0, 5);
+        
+        if (validReviews.length === 0) {
             return (
                 <div className="no-reviews">
                     <p>No reviews yet. Be the first to share your experience!</p>
                 </div>
             );
-        } else {
+        }
+        
             return (
                 <ul className="reviews-list">
-                    {reviews.map((review, index) =>
-                        review && review.comment && index <= 5 ? (
-                            <li key={index} className="review-item">
-                                <div className="review-meta">
-                                    <div className="review-author">
-                                        <div className="review-author-avatar">
-                                            {review?.author?.username?.charAt(0)}
-                                        </div>
-                                        <div className="review-author-name">
-                                            {review?.author?.username}
-                                        </div>
+                    {displayedReviews.map ( (review, index) => (
+                        <li key={review._id || index} className="review-item">
+                            <div className="review-meta">
+                                <div className="review-author">
+                                    <div className="review-author-avatar">
+                                        {review?.author?.username?.charAt(0)}
                                     </div>
-                                    <div className="review-rating">
-                                        {[...Array(5)].map((_, i) => (
-                                            <span key={i} className="star">
-                                                {i < (review.rating || 5) ? '★' : '☆'}
-                                            </span>
-                                        ))}
+                                    <div className="review-author-name">
+                                        {review?.author?.username}
                                     </div>
                                 </div>
-                                <p className="review-content">{review.comment}</p>
-                                {/* Only show delete button if the review belongs to the current user */}
-                                {user && user.id === review.author?._id && (
-                                    <button 
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            e.stopPropagation();
-                                            deleteReview(review);
-                                        }} 
-                                        type="button" 
-                                        className="delete-review-button"
-                                    >
-                                        Delete
-                                    </button>
-                                )}
-                            </li>
-                        ) : (
-                            <li key={index} className="review-item">
-                                <p className="review-content">Invalid Review</p>
-                            </li>
-                        )
-                    )}
+                                <div className="review-rating">
+                                    {[...Array(5)].map((_, i) => (
+                                        <span key={i} className="star">
+                                            {i < (review.rating || 5) ? '★' : '☆'}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                            <p className="review-content">{review.comment}</p>
+                            {/* Only show delete button if the review belongs to the current user */}
+                            {user && user.id === review.author?._id && (
+                                <button 
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        deleteReview(review);
+                                    }} 
+                                    type="button" 
+                                    className="delete-review-button"
+                                >
+                                    Delete
+                                </button>
+                            )}
+                        </li>))}
                 </ul>
             );
-        }
+
     };
 
     return (
@@ -108,7 +105,8 @@ export default function Reviews({listing}) {
             <ReviewForm listing={listing} reviews={reviews} setReviews={setReviews}/>
             {showReviews()}
             {
-                reviews.length > 5 &&  <button className="delete-review-button">Load more Reviews</button>
+                reviews.filter(review => review && review.comment).length > 5 && 
+                <button className="delete-review-button">Load more Reviews</button>
             }
         </div>
     )

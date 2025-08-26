@@ -1,0 +1,101 @@
+.profile-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  border-radius: var(--card-border-radius);
+}
+
+.profile-header {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  border-bottom: 1px solid var(--border-muted);
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.profile-info h1 {
+  font: var(--h1);
+  color: var(--text-dark);
+}
+
+.profile-email {
+  color: var(--text-muted);
+  margin: 0.2rem 0;
+}
+
+.profile-bio {
+  margin: 0.5rem 0;
+  color: var(--text);
+}
+
+.edit-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0.8rem;
+}
+
+.edit-btn:hover {
+  background: var(--primary-dark);
+}
+
+.edit-form {
+  margin: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.edit-form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  color: var(--text-dark);
+}
+
+.edit-form input,
+.edit-form textarea {
+  padding: 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font: var(--p);
+}
+
+.save-btn {
+  align-self: flex-start;
+  background: var(--secondary);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.save-btn:hover {
+  background: var(--secondary-dark);
+}
+
+.bookings-section {
+  margin-top: 2rem;
+}
+
+.bookings-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.booking-card {
+  background: var(--bg-light);
+  padding: 1rem;
+  border: 1px solid var(--border-muted);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  box-shadow: var(--card-shadow);
+}

@@ -5,10 +5,22 @@ const listingSchema = new Schema({
         type : String,
         required: true
     },
+    type : {
+        type : String,
+    },
+    address : {
+        type : String,
+    },
     description : {
         type : String,
         required : true
     },
+    hostContact : {
+        type : String,
+    },
+    amenities : [
+        String
+    ],
     images : [{
         filename : {
             type : String,
@@ -43,6 +55,8 @@ const listingSchema = new Schema({
         type : Number,
         default : 3,
     }
+},{
+    timestamps: true,
 })
 
 const Listing = model('Listing', listingSchema);

@@ -64,7 +64,7 @@ export default function ReviewForm({listing, reviews,setReviews}) {
         .then((newReview) => {
             console.log("submitted new review [ReviewForm.jsx]")
             console.log(newReview)
-            setReviews(prevReviews => [...prevReviews, newReview])
+            setReviews(prevReviews => [newReview, ...prevReviews])
             // Clear the form after successful submission
             e.target.reset();
             setValue(2);
@@ -114,8 +114,10 @@ export default function ReviewForm({listing, reviews,setReviews}) {
                         onChangeActive={(event, newHover) => {
                             setHover(newHover);
                         }}
-                        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
-                        sx={{fontFamily:'var(--ff)'}}
+                        emptyIcon={<StarIcon style={{color:'var(--bg-dark)'}}/>}
+                        sx={{fontFamily:'var(--ff)',
+                            color: '#FFD700' ,
+                        }}
                     />
                     {value !== null && (
                         <span className="rating-label">{labels[hover !== -1 ? hover : value]}</span>
