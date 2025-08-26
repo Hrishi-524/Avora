@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer-container">
-        <h2 className="footer-logo">Wanderlust</h2>
+        <h2 className="footer-logo">Avora</h2>
         <p className="footer-tagline">Explore. Book. Travel.</p>
 
         <ul className="footer-links">
@@ -14,7 +14,7 @@ export default function Footer() {
           <li><a href="/contact">Contact</a></li>
         </ul>
 
-        <p className="footer-copy">© 2025 Wanderlust. All rights reserved.</p>
+        <p className="footer-copy">© 2025 Avora. All rights reserved.</p>
       </div>
     </footer>
   );

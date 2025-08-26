@@ -12,8 +12,10 @@ export const fetchListings = async () => {
 
 export const fetchListingById = async (id) => {
     try {
+        console.log(`fetch`)
         // Token will be automatically included via axios defaults set in user.js
         const res = await axios.get(`/api/listings/${id}`);
+        console.log(`res.data`,res.data)
         return res.data;
     } catch (error) {
         console.error("Error fetching listing", error);
@@ -62,6 +64,25 @@ export const createListing = async (newListing) => {
             },
         });
         return response;
+    } catch (error) {
+        console.error("unable to create listing", error);
+        throw error;
+    }
+}
+
+export const destroyListing = async (listingId) => {
+    try {
+        const res = await axios.delete(`/api/listings/delete/${listingId}`);
+        return res.data.deletedListing;
+    } catch (error) {
+        console.error("unable to create listing", error);
+        throw error;
+    }
+}
+
+export const editListing = async (listingId, editedListing) => {
+    try {
+        const res = await axios.put(`/api/listings/edit/${listingId}`,editedListing)
     } catch (error) {
         console.error("unable to create listing", error);
         throw error;

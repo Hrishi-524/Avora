@@ -103,6 +103,7 @@ export const destroyListing = async (req, res) => {
     try {
         const { id } = req.params
         const deletedListing = await Listing.findByIdAndDelete(id)
+        console.log(`succesfully deleted listing`)
         res.status(200).json({
             success: true,
             message: 'destroy success',
@@ -117,3 +118,40 @@ export const destroyListing = async (req, res) => {
         });
     }
 }
+
+export const editListing = async (req, res) => {
+  try {
+    const listingId = req.params.id;
+    const userId = req.user.id; // comes from auth middleware (JWT decoded)
+
+    // Find the listing
+    let listing = await Listing.findById(listingId);
+    if (!listing) {
+      return res.status(404).json({ success: false, message: "Listing not found" });
+    }
+
+    // Check if the current user is the owner
+    if (listing.owner.toString() !== userId) {
+      return res.status(403).json({ success: false, message: "Not authorized to edit this listing" });
+    }
+
+    // Update fields
+    const updates = req.body; // frontend sends updated fields
+    listing = await Listing.findByIdAndUpdate(listingId, updates, {
+      new: true,
+      runValidators: true,
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Listing updated successfully",
+      listing,
+    });
+  } catch (error) {
+    console.error("Error updating listing:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Server error while updating listing",
+    });
+  }
+};

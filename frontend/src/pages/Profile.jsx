@@ -1,23 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { fetchUserProfile } from "../api/user";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Avatar from "@mui/material/Avatar";
 import Face6Icon from "@mui/icons-material/Face6";
 import "./Profile.css";
 import { fetchHostListings, fetchUserBookings } from "../api/booking";
+import '../components/Home/Card.jsx'
+import Card from "../components/Home/Card.jsx";
+import { destroyListing } from "../api/listings.js";
+import { getUserInfo } from "../utils/auth.js";
+
+import MUICard from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/joy/Button';
+import CardActionArea from '@mui/material/CardActionArea';
+import CardActions from '@mui/material/CardActions';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+// import './Card.css'
+import { NavLink, Link } from "react-router-dom";
 
 function Profile() {
-  const [user, setUser] = useState({});
-  const [editProfileMode, setEditProfileMode] = useState(false);
-  const [bookings, setBookings] = useState([]);
-  const [listings, setListings] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const params = useParams();
+    const [user, setUser] = useState({});
+    const [editProfileMode, setEditProfileMode] = useState(false);
+    const [bookings, setBookings] = useState([]);
+    const [listings, setListings] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const params = useParams();
+    const navigate = useNavigate()
 
-  useEffect(() => {
+useEffect(() => {
     const loadUserData = async () => {
-      try {
+        try {
         setLoading(true);
         setError(null);
         
@@ -29,83 +45,81 @@ function Profile() {
 
         // Fetch listings if user is a host
         if (userData.data.userDetails.isHost) {
-          const hostListings = await fetchHostListings(params.id);
-          setListings(hostListings);
+            const hostListings = await fetchHostListings(params.id);
+            setListings(hostListings);
         }
-      } catch (error) {
+        } catch (error) {
         console.error("Error loading user data:", error);
         setError("Failed to load user profile");
-      } finally {
+        } finally {
         setLoading(false);
-      }
+        }
     };
 
     if (params.id) {
-      loadUserData();
+        loadUserData();
     }
-  }, [params.id]);
+}, [params.id]);
 
-  const updateUserDetails = (e) => {
+const updateUserDetails = (e) => {
     e.preventDefault();
     const updatedUser = {
-      username: user.username,
-      email: user.email,
-      bio: user.bio,
-      personalContact: user.personalContact,
-      profileImage: user.profileImage,
+        username: user.username,
+        email: user.email,
+        bio: user.bio,
+        personalContact: user.personalContact,
+        profileImage: user.profileImage,
     };
     console.log("Updated user object (send to backend):", updatedUser);
-  };
+};
 
-  const editListing = (listingId) => {
+const editListing = (listingId) => {
     console.log("Edit listing:", listingId);
-    // TODO: Add navigation to edit listing page or open edit modal
-    // navigate(`/edit-listing/${listingId}`);
-  };
+    const userId = getUserInfo().id
+    navigate(`/user/${userId}/listings/edit/${listingId}`);
+};
 
-  const deleteListing = (listingId) => {
+const deleteListing = async (listingId) => {
     console.log("Delete listing:", listingId);
-    // TODO: Show confirmation dialog and call delete API
-    // if (confirm("Are you sure you want to delete this listing?")) {
-    //   // Call delete API endpoint
-    //   // Remove from local state after successful deletion
-    //   setListings(prev => prev.filter(listing => listing._id !== listingId));
-    // }
-  };
+    if (confirm("Are you sure you want to delete this listing?")) {
+        const res = await destroyListing(listingId)
+        setListings(prev => prev.filter(listing => listing._id !== listingId));
+    }
+};
 
-  const toggleEditMode = () => setEditProfileMode((prev) => !prev);
+const toggleEditMode = () => setEditProfileMode((prev) => !prev);
 
-  const formatDate = (dateString) => {
+const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
-      weekday: 'short',
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
     });
-  };
+};
 
-  const getStatusColor = (status) => {
+const getStatusColor = (status) => {
     switch (status?.toLowerCase()) {
-      case 'confirmed':
+        case 'confirmed':
         return '#28a745';
-      case 'pending':
+        case 'pending':
         return '#ffc107';
-      case 'cancelled':
+        case 'cancelled':
         return '#dc3545';
-      default:
+        default:
         return '#6c757d';
     }
-  };
+};
 
-  if (loading) {
+if (loading) {
     return <div className="profile-container">Loading...</div>;
-  }
+}
 
-  if (error) {
+if (error) {
     return <div className="profile-container">Error: {error}</div>;
-  }
+}
 
-  return (
+return (
     <div className="profile-container">
       {/* USER HEADER */}
       <div className="profile-header">
@@ -243,57 +257,43 @@ function Profile() {
           ) : (
             <div className="listings-list">
               {listings.map((listing) => (
-                <div key={listing._id} className="listing-card">
-                  <div className="listing-image">
-                    {listing.images && listing.images.length > 0 ? (
-                      <img 
-                        src={listing.images.find(img => img.featured)?.url || listing.images[0]?.url} 
-                        alt={listing.title}
-                        className="listing-thumbnail"
-                      />
-                    ) : (
-                      <div className="no-image-placeholder">No Image</div>
-                    )}
-                  </div>
-                  
-                  <div className="listing-info">
-                    <div className="listing-header">
-                      <h3 className="listing-title">{listing.title}</h3>
-                      <span className="listing-price">₹{listing.price}/night</span>
-                    </div>
-                    
-                    <div className="listing-details">
-                      <p><strong>Location:</strong> {listing.location}</p>
-                      <p><strong>Type:</strong> {listing.type || 'Property'}</p>
-                      <p><strong>Rating:</strong> {listing.averageRating} ⭐</p>
-                      {listing.reviews && (
-                        <p><strong>Reviews:</strong> {listing.reviews.length}</p>
-                      )}
-                    </div>
-                    
-                    <div className="listing-description">
-                      <p>{listing.description.length > 100 
-                        ? `${listing.description.substring(0, 100)}...` 
-                        : listing.description}
-                      </p>
-                    </div>
-                  </div>
-                  
-                  <div className="listing-actions">
-                    <button 
-                      className="edit-listing-btn"
-                      onClick={() => editListing(listing._id)}
-                    >
-                      Edit
-                    </button>
-                    <button 
-                      className="delete-listing-btn"
-                      onClick={() => deleteListing(listing._id)}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
+                <MUICard sx={{ maxWidth: 345, m: 2 }}>
+            <CardActionArea>
+                <CardMedia
+                component="img"
+                height="140"
+                image={listing?.images[0]?.url || "/placeholder.jpg"}
+                alt={listing.title}
+                />
+                <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                    {listing.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                    {listing.description}
+                </Typography>
+                </CardContent>
+            </CardActionArea>
+
+            {/* 🔥 Actions: Edit + Delete */}
+            <CardActions>
+                <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => editListing(listing._id)}
+                >
+                Edit
+                </Button>
+                <Button
+                variant="outlined"
+                color="danger"
+                onClick={() => deleteListing(listing._id)}
+                >
+                Delete
+                </Button>
+            </CardActions>
+            </MUICard>
+    
               ))}
             </div>
           )}
@@ -304,3 +304,59 @@ function Profile() {
 }
 
 export default Profile;
+
+// <div key={listing._id} className="listing-card">
+//                   {/* <Card listing={listing}/> */}
+//                     <div className="listing-image">
+//                     {listing.images && listing.images.length > 0 ? (
+//                       <img 
+//                         src={listing.images.find(img => img.featured)?.url || listing.images[0]?.url} 
+//                         alt={listing.title}
+//                         style={{
+//                             maxHeight:'5rem',
+//                             maxWidth : '5rem',
+//                         }}
+//                         className="listing-thumbnail"
+//                       />
+//                     ) : (
+//                       <div className="no-image-placeholder">No Image</div>
+//                     )}
+//                   </div>
+                  
+//                   <div className="listing-info">
+//                     <div className="listing-header">
+//                       <h3 className="listing-title">{listing.title}</h3>
+//                       <span className="listing-price">₹{listing.price}/night</span>
+//                     </div>
+                    
+//                     <div className="listing-details">
+//                       <p><strong>Type:</strong> {listing.type || 'Property'}</p>
+//                       <p><strong>Rating:</strong> {listing.averageRating} ⭐</p>
+//                       {listing.reviews && (
+//                         <p><strong>Reviews:</strong> {listing.reviews.length}</p>
+//                       )}
+//                     </div>
+                    
+//                     <div className="listing-description">
+//                       <p>{listing.description.length > 100 
+//                         ? `${listing.description.substring(0, 100)}...` 
+//                         : listing.description}
+//                       </p>
+//                     </div>
+//                   </div>
+//                       <p><strong>Location:</strong> {listing.location}</p>
+//                   <div className="listing-actions">
+//                     <button 
+//                       className="edit-listing-btn"
+//                       onClick={() => editListing(listing._id)}
+//                     >
+//                       Edit
+//                     </button>
+//                     <button 
+//                       className="delete-listing-btn"
+//                       onClick={() => deleteListing(listing._id)}
+//                     >
+//                       Delete
+//                     </button>
+//                   </div>
+//                 </div>

@@ -7,6 +7,7 @@
     import Login from "./pages/Login"
     import { setupAxiosInterceptors } from "./utils/auth"
     import Profile from "./pages/Profile"
+import Edit from "./pages/Edit"
 
     function App() {
         // Initialize axios interceptors when app loads
@@ -23,6 +24,7 @@
                     <Route path="/login" element={<Login />}></Route>
                     <Route path="/host" element={<Host/>}></Route>
                     <Route path="/user/:id" element={<Profile/>}></Route>
+                    <Route path="/user/:id/listings/edit/:id" element={<Edit/>}></Route>
                 </Routes>
             </>
         )

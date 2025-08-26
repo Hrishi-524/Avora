@@ -111,20 +111,103 @@
     position: relative;
     width: 40px;
     height: 40px;
-    background: var(--primary);
-    border-radius: 50%;
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    border-radius: 11px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), 0 0 0 3px rgba(255, 255, 255, 0.2);
+    box-shadow: 
+        0 3px 12px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
     overflow: hidden;
     border: 2px solid rgba(255, 255, 255, 0.8);
+    transform: rotate(-1deg); /* Slight human imperfection */
 }
 
 .logo-icon:hover {
-    transform: rotate(15deg) scale(1.05);
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4), 0 0 0 3px rgba(255, 255, 255, 0.3);
+    transform: rotate(1deg) scale(1.05);
+    box-shadow: 
+        0 5px 20px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+.mountain-path {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Mountain peaks - triangular shapes */
+.peak {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9);
+    clip-path: polygon(50% 15%, 20% 85%, 80% 85%);
+}
+
+.peak-1 {
+    width: 8px;
+    height: 10px;
+    left: 2px;
+    top: 6px;
+    transform: rotate(-2deg);
+    opacity: 0.7;
+}
+
+.peak-2 {
+    width: 12px;
+    height: 14px;
+    left: 6px;
+    top: 3px;
+    transform: rotate(1deg);
+}
+
+.peak-3 {
+    width: 7px;
+    height: 9px;
+    right: 3px;
+    top: 8px;
+    transform: rotate(2deg);
+    opacity: 0.8;
+}
+
+/* Winding trail */
+.trail {
+    position: absolute;
+    bottom: 2px;
+    left: 2px;
+    right: 2px;
+    height: 1.5px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 1px;
+    transform: rotate(1deg);
+}
+
+.trail::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 6px;
+    width: 8px;
+    height: 1.5px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 1px;
+    transform: rotate(-3deg);
+}
+
+.trail::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    right: 4px;
+    width: 5px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 1px;
+    transform: rotate(2deg);
 }
 
 .compass-ring {
@@ -450,4 +533,76 @@
     .navbar-left {
         gap: 1rem;
     }
+}
+
+/* ADD these styles to your existing Navbar.css */
+
+/* Path icon inside avatar */
+.path-icon {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.path-line {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 1px;
+}
+
+.path-1 {
+    width: 16px;
+    height: 2px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-8deg);
+    opacity: 0.8;
+}
+
+.path-2 {
+    width: 12px;
+    height: 1.5px;
+    top: 60%;
+    left: 45%;
+    transform: translate(-50%, -50%) rotate(12deg);
+    opacity: 0.6;
+}
+
+.path-dot {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    top: 35%;
+    right: 30%;
+    transform: rotate(15deg);
+}
+
+/* Keep your existing logo-container and logo-text styles */
+/* Just update the logo-text to work with MUI Typography */
+.logo-text .brand-name {
+    font-weight: 700 !important;
+    letter-spacing: -0.5px !important;
+    background: var(--primary) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+    filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.3)) !important;
+}
+
+.logo-text .brand-tagline {
+    font-size: 0.7rem !important;
+    opacity: 0.9 !important;
+    background: var(--primary) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    letter-spacing: 1px !important;
+    transition: all 0.3s ease !important;
+    filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.3)) !important;
 }

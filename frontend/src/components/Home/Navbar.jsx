@@ -2,10 +2,11 @@ import * as React from 'react';
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { getUserInfo, isAuthenticated, removeToken } from '../../utils/auth';
 import { Menu, X, MapPin } from 'lucide-react';
+import { Box, Typography, Avatar } from '@mui/material';
 import './Navbar.css';
 
-const pages = ['villas', 'hotels', 'trips'];
-const links = ['/listings', '/listings', '/listings'];
+const pages = [];
+const links = [];
 
 export default function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -53,17 +54,40 @@ export default function Navbar() {
                 <div className="navbar-left">
                     {/* Logo */}
                     <Link to="/" className="navbar-logo">
-                        <div className="logo-container">
-                            <div className="logo-icon">
-                                <div className="compass-ring"></div>
-                                <div className="compass-needle"></div>
-                            </div>
-                            <div className="logo-text">
-                                <span className="brand-name">Wanderlust</span>
-                                <span className="brand-tagline">the way you go</span>
-                            </div>
-                        </div>
-                    </Link>
+    <Box className="logo-container">
+        <Avatar 
+            className="logo-avatar"
+            sx={{
+                width: 42,
+                height: 42,
+                background: 'linear-gradient(135deg, #48bb78, #38a169)',
+                transform: 'rotate(-1deg)',
+                transition: 'all 0.3s ease',
+                boxShadow: '0 3px 12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+                border: '2px solid rgba(255, 255, 255, 0.8)',
+                '&:hover': {
+                    transform: 'rotate(1deg) scale(1.05)',
+                    boxShadow: '0 5px 20px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                }
+            }}
+        >
+            <Box className="path-icon">
+                <Box className="path-line path-1" />
+                <Box className="path-line path-2" />
+                <Box className="path-dot" />
+            </Box>
+        </Avatar>
+        
+        <Box className="logo-text">
+            <Typography className="brand-name" variant="h5" component="span">
+                Avora
+            </Typography>
+            <Typography className="brand-tagline" variant="caption" component="span">
+                the way you go
+            </Typography>
+        </Box>
+    </Box>
+</Link>
 
                     {/* Desktop Navigation */}
                     <div className="navbar-menu">
