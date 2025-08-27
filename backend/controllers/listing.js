@@ -1,4 +1,4 @@
-import Listing from "../models/Listing.js";
+import Listing from "../models/listing.js";
 import User from "../models/User.js";
 import ExpressError from "../errorhandling/ExpressError.js";
 
