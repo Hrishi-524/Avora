@@ -1,5 +1,5 @@
 import Review from "../models/Review.js";
-import Listings from "../models/Listing.js";
+import Listings from "../models/listing.js";
 
 export const saveReviewData = async (req, res) => {
     let { id } = req.params;
