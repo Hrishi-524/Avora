@@ -1,11 +1,11 @@
 import Review from "../models/Review.js";
-import Listings from "../models/listing.js";
+import Listing from "../models/listing.js";
 
 export const saveReviewData = async (req, res) => {
     let { id } = req.params;
     let {comment , rating, author} = req.body;
 
-    let listing = await Listings.findById(id);
+    let listing = await Listing.findById(id);
     let newReview = new Review({
         comment : comment,
         rating : rating,
@@ -36,7 +36,7 @@ export const saveReviewData = async (req, res) => {
 export const deleteReview = async (req, res) => {
     let { listingId, reviewId } = req.params;
 
-    await Listings.findByIdAndUpdate(listingId, {
+    await Listing.findByIdAndUpdate(listingId, {
         $pull: { reviews: reviewId }
     });
 
