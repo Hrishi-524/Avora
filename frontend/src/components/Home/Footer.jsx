@@ -1,4 +1,5 @@
 import './Footer.css';
+import { getUserInfo } from '../../utils/auth.js'
 
 export default function Footer() {
   return (
@@ -9,9 +10,9 @@ export default function Footer() {
 
         <ul className="footer-links">
           <li><a href="/">Home</a></li>
-          <li><a href="/bookings">Bookings</a></li>
+          <li><a href={`/user/${getUserInfo().id}`}>Bookings</a></li>
           <li><a href="/about">About</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><a href="https://www.linkedin.com/in/linkedhrishi/">Contact</a></li>
         </ul>
 
         <p className="footer-copy">© 2025 Avora. All rights reserved.</p>

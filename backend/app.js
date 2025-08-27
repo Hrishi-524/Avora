@@ -54,3 +54,21 @@ app.use("/api/listings/:id/reviews", reviewRouter);
 app.use("/api/listings/:id/book", bookingRouter);
 
 app.use("/api/payment", paymentRouter);
+
+import ExpressError from './errorhandling/ExpressError.js';
+import NotFound from './errorhandling/NotFound.js';
+
+// app.all('/*', (req, res, next) => {
+//     next(new NotFound("Page Not Found"));
+// });
+
+app.use((err, req, res, next) => {
+    const { status = 500, message = "Something went wrong" } = err;
+    res.status(status).json({ 
+        success: false,
+        error: {
+        status,
+        message,
+        },
+    });
+});

@@ -2,36 +2,25 @@ import Razorpay from 'razorpay'
 
 export const initiateBooking = async (req, res) => {
     const {checkIn, checkOut, numberOfGuests, listingId, price} = req.body;
-    console.log(price)
-    try {
-        const instance = new Razorpay({ 
-            key_id: process.env.RAZORPAY_KEY_ID, 
-            key_secret: process.env.RAZORPAY_KEY_SECRET 
-        })
+    const instance = new Razorpay({ 
+        key_id: process.env.RAZORPAY_KEY_ID, 
+        key_secret: process.env.RAZORPAY_KEY_SECRET 
+    })
 
-        console.log("---------------checkpint--------------------")
-        const order = await instance.orders.create({
-            amount: price * 100,
-            currency: "INR",
-            receipt: `recipt_${Date.now()}`,
-        })
+    const order = await instance.orders.create({
+        amount: price * 100,
+        currency: "INR",
+        receipt: `recipt_${Date.now()}`,
+    })
 
-        res.status(201).json({
-            success : true,
-            orderId : order.id,
-            amount : order.amount,
-            key : process.env.RAZORPAY_KEY_ID,
-            receiptId : order.receipt,
-        })
-    } catch (error) {
-        console.error("Error creating Razorpay order:", error);
-        const message = error?.error?.description || "Failed to initiate payment";
-
-        res.status(500).json({
-            success: false,
-            message: message,
-        });
-    }
+    console.log(`POST/BOOKING INITIATED: ${listingId}`)
+    res.status(201).json({
+        success : true,
+        orderId : order.id,
+        amount : order.amount,
+        key : process.env.RAZORPAY_KEY_ID,
+        receiptId : order.receipt,
+    })
 }
 
 // sample suucess response 

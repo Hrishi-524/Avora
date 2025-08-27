@@ -1,14 +1,11 @@
 import Listing from "../models/Listing.js";
 import User from "../models/User.js";
+import ExpressError from "../errorhandling/ExpressError.js";
 
 export const renderHomePage = async (req, res) => {
-    try {
-        let listings = await Listing.find({});
-        res.json(listings)
-    } catch (error) {
-        console.log(error);
-        throw error;
-    }
+    let listings = await Listing.find({});
+    console.log(`GET/RENDER HOME PAGE`)
+    res.json(listings)
 }
 
 export const renderListingById = async (req, res) => {
@@ -22,136 +19,96 @@ export const renderListingById = async (req, res) => {
             }
         })
         .populate("host");
-    console.log("Listing with populated reviews and host:");
-    console.log(listing);
+    if (!listing) throw new ExpressError("Listing not found", 404);
+    console.log(`GET/RENDER LISTING PAGE : ${id}`)
     res.json(listing)
 }
 
 export const searchListings = async (req, res) => {
-    try {
-        const {location, checkIn, checkOut, guests} = req.body
+    const {location, checkIn, checkOut, guests} = req.body
 
-        let searchQuery = {}
+    let searchQuery = {}
 
-        if(location) {
-            searchQuery.$or =  [
-                { location: { $regex: location, $options: 'i' } },
-                { country: { $regex: location, $options: 'i' } }, 
-                { title: { $regex: location, $options: 'i' } }
-            ]
-        }
-
-        const listings = await Listing.find(searchQuery).populate('host', 'name').populate('reviews') 
-        
-        res.json({
-            success: true,
-            results: listings,
-            count: listings.length,
-            searchParams: { location, checkIn, checkOut, guests }
-        }); 
-    } catch (error) {
-        console.error('Search error:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Search failed',
-            error: error.message
-        });
+    if(location) {
+        searchQuery.$or =  [
+            { location: { $regex: location, $options: 'i' } },
+            { country: { $regex: location, $options: 'i' } }, 
+            { title: { $regex: location, $options: 'i' } }
+        ]
     }
+
+    const listings = await Listing.find(searchQuery).populate('host', 'username email').populate('reviews') 
+    console.log(`POST/SEARCH LISTINGS BY QUERY`)
+    res.json({
+        success: true,
+        results: listings,
+        count: listings.length,
+        searchParams: { location, checkIn, checkOut, guests }
+    }); 
 }
 
 export const createListing = async (req, res) => {
-    try {
-        const user = await User.findOne({username : req.body.host})
-        const imageUrls = req.files.map(file => file.path)
-        const imageObjects = req.files.map(file => ({
-            filename: file.filename || file.originalname,  
-            featured: false, 
-            url: file.path,  
-        }))
+    const user = await User.findOne({username : req.body.host})
+    const imageObjects = req.files.map(file => ({
+        filename: file.filename || file.originalname,  
+        featured: false, 
+        url: file.path,  
+    }))
 
-        const newListing = new Listing({
-            ...req.body,
-            host : user._id,
-            images: imageObjects,
-        })
+    const newListing = new Listing({
+        ...req.body,
+        host : user._id,
+        images: imageObjects,
+    })
 
-        if(!user.isHost) {
-            user.isHost = true;
-            await user.save();
-        }
-
-        console.log('---------------NEW LISTING-------------------')
-        console.log(newListing)
-        await newListing.save()
-
-        const populatedListing = (await newListing.populate("host")).populate("reviews")
-        
-        res.status(201).json({
-            populatedListing,
-        })
-    } catch (error) {
-        console.error('Create Listing Failed :', error);
-        res.status(500).json({
-            success: false,
-            message: 'create failed',
-            error: error.message
-        });
+    if(!user.isHost) {
+        user.isHost = true;
+        await user.save();
     }
+
+    await newListing.save()
+
+    const populatedListing = (await newListing.populate("host")).populate("reviews")
+    console.log(`POST/CREATE LISTING BY USER: ${user.id}, ${user.username}`)
+    
+    res.status(201).json({
+        populatedListing,
+    })
 }
 
 export const destroyListing = async (req, res) => {
-    try {
-        const { id } = req.params
-        const deletedListing = await Listing.findByIdAndDelete(id)
-        console.log(`succesfully deleted listing`)
-        res.status(200).json({
-            success: true,
-            message: 'destroy success',
-            deletedListing,
-        })
-    } catch (error) {
-        console.error('Destroy Listing Failed :', error);
-        res.status(500).json({
-            success: false,
-            message: 'destroy failed',
-            error: error.message
-        });
-    }
+    const { id } = req.params
+    const deletedListing = await Listing.findByIdAndDelete(id)
+    if (!deletedListing) throw new ExpressError("Listing not found", 404);
+    console.log(`DELETE/DELETE LISTING BY ID: ${id}`)
+    res.status(200).json({
+        success: true,
+        message: 'destroy success',
+        deletedListing,
+    })
 }
 
 export const editListing = async (req, res) => {
-  try {
     const listingId = req.params.id;
-    const userId = req.user.id; // comes from auth middleware (JWT decoded)
+    const userId = req.user.id;
 
-    // Find the listing
     let listing = await Listing.findById(listingId);
-    if (!listing) {
-      return res.status(404).json({ success: false, message: "Listing not found" });
+    if (!listing) throw new ExpressError("Listing not found", 404);
+
+    if (listing.host.toString() !== userId) {
+        throw new ExpressError("Not authorized to edit this listing", 403);
     }
 
-    // Check if the current user is the owner
-    if (listing.owner.toString() !== userId) {
-      return res.status(403).json({ success: false, message: "Not authorized to edit this listing" });
-    }
-
-    // Update fields
-    const updates = req.body; // frontend sends updated fields
+    const updates = req.body;
     listing = await Listing.findByIdAndUpdate(listingId, updates, {
-      new: true,
-      runValidators: true,
+        new: true,
+        runValidators: true,
     });
+    console.log(`PUT/EDIT LISTING BY ID: ${listingId}, USER: ${userId}`)
 
     return res.status(200).json({
-      success: true,
-      message: "Listing updated successfully",
-      listing,
+        success: true,
+        message: "Listing updated successfully",
+        listing,
     });
-  } catch (error) {
-    console.error("Error updating listing:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Server error while updating listing",
-    });
-  }
 };

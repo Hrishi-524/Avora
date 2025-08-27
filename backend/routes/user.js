@@ -2,20 +2,21 @@ import express from "express"
 const router = express.Router({ mergeParams: true });
 import { signupUser , verifyLogin , fetchUserDetails, fetchUserBookings, fetchHostListings } from '../controllers/user.js';
 import { isLoggedIn } from "../middleware.js";
+import wrapAsync from "../errorhandling/wrapAsync.js";
 
 router.route("/signup")
-.post(signupUser);
+.post(wrapAsync(signupUser))
 
 router.route("/login")
-.post(verifyLogin)
+.post(wrapAsync(verifyLogin))
 
 router.route("/user/:id")
-.get(isLoggedIn, fetchUserDetails)
+.get(wrapAsync(isLoggedIn), wrapAsync(fetchUserDetails))
 
 router.route("/bookings/:id")
-.get(isLoggedIn, fetchUserBookings)
+.get(wrapAsync(isLoggedIn), wrapAsync(fetchUserBookings))
 
 router.route("/host/:id")
-.get(isLoggedIn, fetchHostListings)
+.get(wrapAsync(isLoggedIn), wrapAsync(fetchHostListings))
 
 export default router;

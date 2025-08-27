@@ -1,12 +1,13 @@
-    import { useState, useEffect } from "react"
-    import Home from "./pages/Home"
-    import Listing from "./pages/Listing"
-    import Signup from "./pages/Signup"
-    import Host from "./pages/Host"
-    import { Routes, Route } from "react-router-dom"
-    import Login from "./pages/Login"
-    import { setupAxiosInterceptors } from "./utils/auth"
-    import Profile from "./pages/Profile"
+import { useState, useEffect } from "react"
+import Home from "./pages/Home"
+import Listing from "./pages/Listing"
+import Signup from "./pages/Signup"
+import Host from "./pages/Host"
+import { Routes, Route } from "react-router-dom"
+import Login from "./pages/Login"
+import { setupAxiosInterceptors } from "./utils/auth"
+import Profile from "./pages/Profile"
+import About from "./pages/About"
 import Edit from "./pages/Edit"
 
     function App() {
@@ -25,6 +26,7 @@ import Edit from "./pages/Edit"
                     <Route path="/host" element={<Host/>}></Route>
                     <Route path="/user/:id" element={<Profile/>}></Route>
                     <Route path="/user/:id/listings/edit/:id" element={<Edit/>}></Route>
+                    <Route path="/about" element={<About/>}></Route>
                 </Routes>
             </>
         )

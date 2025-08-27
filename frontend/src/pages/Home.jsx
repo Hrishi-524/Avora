@@ -7,7 +7,7 @@ import "./Home.css";
 import { fetchListings } from "../api/listings.js";
 import Card from "../components/Home/Card.jsx";
 
-const bgImages = ["/images/bg1.webp", "/images/bg2.webp", "/images/bg3.webp"];
+const bgImages = ["/images/bg1.webp", "/images/bg2.webp", "/images/bg3.webp", "/images/bg4.webp", "/images/bg5.webp"];
 
 export default function Home() {
   let [listings, setListings] = useState([]);
@@ -27,7 +27,7 @@ export default function Home() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % bgImages.length);
-    }, 15000); // change every 6s
+    }, 15000); 
 
     return () => clearInterval(interval);
   }, []);
@@ -82,7 +82,6 @@ export default function Home() {
         }
         title={searchResults ? "other places to explore" : ""}
       />
-
       <Footer />
     </div>
   );

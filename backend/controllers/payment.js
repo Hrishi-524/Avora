@@ -4,10 +4,10 @@ import Booking from "../models/Booking.js";
 export const verifyPayment = async (req, res) => {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature, checkIn, checkOut, guestCount, listingId, userId } = req.body;
 
-    const hmac = crypto.createHmac("sha256", process.env.RAZORPAY_SECRET);
+    const hmac = crypto.createHmac("sha256", process.env.RAZORPAY_KEY_SECRET);
     hmac.update(razorpay_order_id + "|" + razorpay_payment_id);
     const generated_signature = hmac.digest("hex");
-
+    console.log(`POST/VERIFY PAYEMENT`)
     if (generated_signature === razorpay_signature) {
         const newBooking = new Booking({
             user: userId,
@@ -16,7 +16,7 @@ export const verifyPayment = async (req, res) => {
             checkOut: checkOut,
             numberOfGuests: guestCount, 
             razorpayPaymentId: razorpay_payment_id,
-            razopayOrderId : razorpay_order_id,
+            razorpayOrderId : razorpay_order_id,
             razorpaySignature : razorpay_signature,
             status: "Paid",
         });

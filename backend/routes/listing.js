@@ -1,25 +1,25 @@
 import express from "express"
 const router = express.Router({ mergeParams: true });
-import { createListing, destroyListing, renderHomePage, renderListingById, searchListings } from "../controllers/listing.js";
+import { createListing, destroyListing, renderHomePage, renderListingById, searchListings, editListing } from "../controllers/listing.js";
 import { isLoggedIn, upload } from "../middleware.js";
-import { editListing } from "../../frontend/src/api/listings.js";
+import wrapAsync from "../errorhandling/wrapAsync.js";
 
 router.route("/")
-.get(renderHomePage)
-
-router.route("/:id")
-.get(renderListingById);
+.get(wrapAsync(renderHomePage))
 
 router.route("/search")
-.post(searchListings)
+.post(wrapAsync(searchListings))
 
 router.route("/new")
-.post(isLoggedIn, upload.array("images", 10), createListing)
+.post(wrapAsync(isLoggedIn), upload.array("images", 10), wrapAsync(createListing))
 
 router.route("/delete/:id")
-.delete(isLoggedIn, destroyListing)
+.delete(wrapAsync(isLoggedIn), wrapAsync(destroyListing))
 
 router.route("/edit/:id")
-.put(isLoggedIn, editListing)
+.put(wrapAsync(isLoggedIn), wrapAsync(editListing))
+
+router.route("/:id")
+.get(wrapAsync(renderListingById));
 
 export default router;
