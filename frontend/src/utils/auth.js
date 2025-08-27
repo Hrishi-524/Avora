@@ -5,6 +5,7 @@ import { jwtDecode } from 'jwt-decode'
 export const setupAxiosInterceptors = () => {
     // Set base URL for axios
     axios.defaults.baseURL = import.meta.env.VITE_API_URL || 'https://avora-tljw.onrender.com';
+    // axios.defaults.baseURL =  'https://axios.defaults.baseURL'
     console.log(axios.defaults.baseURL)
   
     // Request interceptor to add token to headers
