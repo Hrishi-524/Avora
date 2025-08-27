@@ -7,7 +7,9 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { BrowserRouter } from 'react-router-dom';
+import { setupAxiosInterceptors } from './utils/auth.js';
 
+setupAxiosInterceptors()
 
 createRoot(document.getElementById('root')).render(
   //<StrictMode>
