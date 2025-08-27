@@ -20,28 +20,26 @@ main()
     console.log(err);
   });
 
-// Add CORS headers
 
-app.use((req, res, next) => {
-    const allowedOrigins = [
-        'http://localhost:5173',
-        'http://localhost:5174',
-        'https://avora-rust.vercel.app/',
-        'https://avora-client.onrender.com'
-    ];
+import cors from 'cors';
 
-    const origin = req.headers.origin;
-    if (allowedOrigins.includes(origin)) {
-        res.header('Access-Control-Allow-Origin', origin);
-    }
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    if (req.method === 'OPTIONS') {
-        res.sendStatus(200);
-    } else {
-        next();
-    }
-});
+// Allow all origins
+app.use(cors({
+    origin: true,
+    credentials: true
+}));
+
+// Or be more specific but flexible
+app.use(cors({
+    origin: (origin, callback) => {
+        // Allow requests with no origin (mobile apps, Postman, etc.)
+        if (!origin) return callback(null, true);
+        
+        // Allow all origins for now
+        return callback(null, true);
+    },
+    credentials: true
+}));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
