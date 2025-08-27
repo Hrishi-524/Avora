@@ -2,7 +2,7 @@ import 'dotenv/config'
 import User from "../models/User.js";
 import jwt from 'jsonwebtoken';
 import bcrypt, { hash } from 'bcrypt';
-import Listing from '../models/Listing.js';
+import Listing from '../models/listing.js';
 import Booking from '../models/Booking.js';
 import ExpressError from '../errorhandling/ExpressError.js';
 
