@@ -4,8 +4,7 @@ import mbxGeocoding from '@mapbox/mapbox-sdk/services/geocoding';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-const MAPBOX_TOKEN =
-  'pk.eyJ1IjoiaHJpc2hpLTUyNCIsImEiOiJjbWUzemtncWkwM2g0MmlzYWt4Z3NrbGNxIn0.5fDedRthRBtBUBJJzxqExw';
+const MAPBOX_TOKEN = process.env.MAPBOX_ACCESS_TOKEN || 'pk.eyJ1IjoiaHJpc2hpLTUyNCIsImEiOiJjbWUzemtncWkwM2g0MmlzYWt4Z3NrbGNxIn0.5fDedRthRBtBUBJJzxqExw';
 const geocodingClient = mbxGeocoding({ accessToken: MAPBOX_TOKEN });
 
 function Map({listing}) {
