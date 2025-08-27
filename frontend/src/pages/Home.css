@@ -1,70 +1,43 @@
-/* .nav-hero-wrap {
-    background-image: url('/hotel.webp');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 80vh; /* or as needed 
-}  */
-
-/* .hero-section {
+.hero-slider {
   position: relative;
-  height: 100vh;
+  height: 80vh;
   width: 100%;
-  background-image: url('/hotel.webp');
+  margin-top: -87px;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  transform: translateX(100%);   /* start offscreen right */
+  transition: transform 0.5s ease-in;
+  z-index: 0;
+}
+
+/* Active slide comes into view */
+.slide.active {
+  transform: translateX(0);
   z-index: 1;
 }
 
-nav.MuiAppBar-root {
-  position: sticky; /* or fixed 
-  top: 0;
-  background-color: transparent;
-  z-index: 10;
-  transition: background-color 0.4s ease;
-} */
-
-.hero-background {
-  position: relative;
-  height: 80vh; /* Full height for hero */
-  width: 100%;
-  z-index: 0;
-  overflow: hidden;
-  margin-top: -87px; /* Offset navbar height, adjust as needed */
-  padding-top: 80px; /* Add padding to prevent content overlap */
+/* Keep the previous slide sliding out left */
+.slide:not(.active) {
+  transform: translateX(-100%);
 }
 
-.hero-background::before {
+/* dark overlay for readability */
+.hero-slider::after {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url('/travel.webp');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: -1;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 2;
 }
 
-.cards-collection-out {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  padding: 1rem;
-}
-
-.card-div-out {
-    display: flex;
-    justify-content: center;
-    max-width: 270px;
-    padding: 0;
-}
-
-.listings-out {
-  background-color: var(--bg-light);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  padding: 0;
+.hero-slider > *:not(.slide) {
+  position: relative;
+  z-index: 3; /* HeroSection and navbar stay on top */
 }

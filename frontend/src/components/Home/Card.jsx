@@ -28,14 +28,16 @@ export default function Card({listing}) {
                 </CardActionArea>
             </Link>
             <CardActions sx={{display: 'flex', justifyContent: 'space-between', paddingTop:'0',}}>
-                <Button variant="plain" sx={{font:'var(--p2)', lineHeight:'1.4em', color:'var(--text)'}}>Book now for ₹{listing.price}</Button>
+                <Button variant="plain" sx={{font:'var(--p2)', lineHeight:'1.4em', color:'var(--text)'}}>₹{listing.price}</Button>
                 <Link to={`/listings/${listing._id}`} style={{textDecoration:'none', color:'inherit'}}>
                     <Button endDecorator={<KeyboardArrowRight />} color="success" sx={{font:'var(--p2)'}}>
-                        Explore More
+                        view place
                     </Button>
                 </Link>
             </CardActions>
         </MUICard>  
     )
 }
+
+
 

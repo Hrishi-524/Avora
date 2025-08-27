@@ -5,7 +5,6 @@
     background-color: transparent;
     transition: all 0.3s ease;
     z-index: 1000;
-    overflow: hidden;
 }
 
 /* Hover Effect - White Background Drop Down */
@@ -453,6 +452,10 @@
     padding: 0.5rem;
     border-radius: 6px;
     transition: color 0.3s ease;
+    min-height: 44px;
+    min-width: 44px;
+    align-items: center;
+    justify-content: center;
 }
 
 .navbar:hover .mobile-toggle {
@@ -468,16 +471,13 @@
     background: white;
     border-top: 1px solid var(--border-muted);
     padding: 1rem;
-    transform: translateY(-100%);
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    display: none;
 }
 
 .mobile-menu.open {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: all;
+    display: block;
 }
 
 .mobile-links {
@@ -495,6 +495,9 @@
     border-radius: 6px;
     transition: background 0.3s ease;
     text-transform: capitalize;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
 }
 
 .mobile-link:hover {
@@ -504,7 +507,7 @@
 .mobile-auth {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.75rem;
     padding-top: 1rem;
     border-top: 1px solid var(--border-muted);
 }
@@ -513,29 +516,11 @@
 .host-btn.mobile {
     width: 100%;
     text-align: center;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
-/* Mobile Responsive */
-@media (max-width: 768px) {
-    .navbar-left .navbar-menu,
-    .navbar-right .navbar-auth {
-        display: none;
-    }
-
-    .mobile-toggle {
-        display: block;
-    }
-
-    .navbar-container {
-        padding: 1rem;
-    }
-
-    .navbar-left {
-        gap: 1rem;
-    }
-}
-
-/* ADD these styles to your existing Navbar.css */
 
 /* Path icon inside avatar */
 .path-icon {
@@ -605,4 +590,118 @@
     letter-spacing: 1px !important;
     transition: all 0.3s ease !important;
     filter: drop-shadow(0 1px 2px rgba(255, 255, 255, 0.3)) !important;
+}
+
+/* Tablet Responsive */
+@media (max-width: 1024px) {
+    .navbar-container {
+        padding: 1rem 1.5rem;
+    }
+    
+    .navbar-left {
+        gap: 2rem;
+    }
+    
+    .navbar-auth {
+        gap: 0.75rem;
+    }
+    
+    .auth-btn,
+    .host-btn {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .navbar-left .navbar-menu,
+    .navbar-right .navbar-auth {
+        display: none;
+    }
+
+    .mobile-toggle {
+        display: flex;
+    }
+
+    .navbar-container {
+        padding: 0.75rem 1rem;
+    }
+
+    .navbar-left {
+        gap: 1rem;
+        flex: 1;
+    }
+    
+    .logo-container {
+        gap: 0.5rem;
+    }
+    
+    /* Slightly smaller logo on mobile */
+    .logo-avatar {
+        width: 36px !important;
+        height: 36px !important;
+    }
+    
+    .brand-name {
+        font-size: 1.3rem !important;
+    }
+    
+    .brand-tagline {
+        font-size: 0.65rem !important;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .navbar-container {
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .logo-container {
+        gap: 0.4rem;
+    }
+    
+    .logo-avatar {
+        width: 32px !important;
+        height: 32px !important;
+    }
+    
+    .brand-name {
+        font-size: 1.1rem !important;
+    }
+    
+    .brand-tagline {
+        font-size: 0.6rem !important;
+    }
+    
+    .mobile-menu {
+        padding: 0.75rem;
+    }
+    
+    .mobile-auth {
+        gap: 0.5rem;
+    }
+    
+    .auth-btn.mobile,
+    .host-btn.mobile {
+        padding: 0.7rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Hover effects only for non-touch devices */
+@media (hover: hover) {
+    .nav-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateY(-1px);
+    }
+
+    .navbar:hover .nav-link:hover {
+        background: var(--bg-light);
+    }
+    
+    .mobile-link:hover {
+        background: var(--bg-light);
+    }
 }

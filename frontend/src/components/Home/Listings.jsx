@@ -4,7 +4,7 @@ import './Listings.css'
 export default function Listings({listings, title}) {
     return (
         <div className="listings"> 
-            <h4>{title || "Not sure where to ? Surf Beautiful Places Here"}</h4>
+            <h4>{title || ""}</h4>
             <div className="cards-collection">
                 {listings.map((listing) => {
                     return (

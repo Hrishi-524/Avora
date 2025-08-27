@@ -1,82 +1,268 @@
+.search-form {
+    --ht: 3.5rem;
+    display: flex;
+    flex-direction: row;
+    height: var(--ht);
+    width: 55%;
+    background-color: var(--bg-light);
+    border-radius: calc(var(--ht)/2);
+    border: 2px solid black;
+    /* padding: 0.2rem calc(var(--ht)/2) 0.2rem calc(var(--ht)/2); */
+}
+
+.input-search {
+    height: 100%;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border: 2px solid transparent; 
+    border-radius: calc(var(--ht)/2); 
+    padding: 0.2rem calc(var(--ht)/2) 0.2rem calc(var(--ht)/2);
+    transition: border-color 0.2s;
+    cursor: pointer;
+}
+
+.input-search-last {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border: 2px solid transparent; 
+    border-radius: calc(var(--ht)/2); 
+    padding: 0.2rem 0.2rem 0.2rem calc(var(--ht)/2);
+    transition: border-color 0.2s;
+    cursor: pointer;
+}
+
+.input-search-last.expanded {
+    width: 40%; 
+    background-color: white;
+    border-color: black;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.input-search-last.expanded .right-counterpart {
+    width: 7rem;
+    border-radius: calc(var(--ht) / 2);
+}
+
+.input-search-last.expanded .right-counterpart p {
+    display: block;
+    opacity: 1;
+}
+
+.right-counterpart p {
+    display: none;
+}
+
+.left-counterpart {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    cursor: pointer;
+}
+
+.right-counterpart {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    padding: 0.1rem;
+    gap: 0.5rem;
+    background-color: var(--primary);
+}
+
+.input-search-last:hover {
+    background-color: var(--bg-dusky);
+}
+
+.input-search:hover {
+    background-color: var(--bg-dusky);
+}
+
+.input-search-last:focus-within {
+    border-color: black;
+    background-color: white; 
+}
+
+.input-search:focus-within {
+    border-color: black;
+    background-color: white; 
+}
+
+.destination {
+    all: unset;
+    width: 75%;
+    color: var(--text-dark);
+    font-family: var(--ff);
+    font-size: 1rem;
+    cursor: text;
+    border: none;
+    background-color: transparent;
+}
+
+.react-datepicker-component {
+    cursor: pointer;
+    font-size: 0.9rem; 
+    font-family: var(--ff);
+    pointer-events: auto;
+    border: none;
+    background-color: transparent;
+}
+
+.number-in {
+    all: unset;
+    border: none;
+}
+
+/* Mobile Responsive Styles */
+@media screen and (max-width: 768px) {
     .search-form {
-        --ht: 3.5rem;
-        display: flex;
-        flex-direction: row;
-        height: var(--ht);
-        width: 55%;
-        background-color: var(--bg-light);
-        border-radius: calc(var(--ht)/2);
-        border: 2px solid black;
-        /* padding: 0.2rem calc(var(--ht)/2) 0.2rem calc(var(--ht)/2); */
+        --ht: 3rem;
+        width: 95%;
+        flex-direction: column;
+        height: auto;
+        border-radius: 1rem;
+        padding: 0.5rem;
+        gap: 0.5rem;
     }
 
     .input-search {
-        height: 100%;
-        width: 25%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        border: 2px solid transparent; 
-        border-radius: calc(var(--ht)/2); 
-        padding: 0.2rem calc(var(--ht)/2) 0.2rem calc(var(--ht)/2);
-        transition: border-color 0.2s;
-        cursor: pointer;
+        width: 100%;
+        height: var(--ht);
+        border-radius: 0.75rem;
+        padding: 0.5rem 1rem;
+        min-height: 48px; /* Better touch target */
+    }
+
+    .input-search h5 {
+        font-size: 0.75rem;
+        margin: 0;
+        font-weight: 600;
     }
 
     .input-search-last {
-        height: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        border: 2px solid transparent; 
-        border-radius: calc(var(--ht)/2); 
-        padding: 0.2rem 0.2rem 0.2rem calc(var(--ht)/2);
-        transition: border-color 0.2s;
-        cursor: pointer;
+        width: 100%;
+        height: var(--ht);
+        border-radius: 0.75rem;
+        padding: 0.5rem 0.5rem 0.5rem 1rem;
+        min-height: 48px;
     }
 
     .input-search-last.expanded {
-        width: 40%; 
+        width: 100%;
         background-color: white;
         border-color: black;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Optional: add shadow like Airbnb */
     }
 
     .input-search-last.expanded .right-counterpart {
-        width: 7rem; /* Expand the search button when parent is expanded */
+        width: auto;
+        min-width: 6rem;
         border-radius: calc(var(--ht) / 2);
+        padding: 0.5rem 1rem;
     }
 
     .input-search-last.expanded .right-counterpart p {
-        display: block; /* Show when expanded */
-        opacity: 1; /* Show "Search" text when expanded */
-    }
-
-    .right-counterpart p {
-        display: none;
+        display: block;
+        opacity: 1;
+        font-size: 0.9rem;
     }
 
     .left-counterpart {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        cursor: pointer;
+        flex: 1;
+        padding-right: 0.5rem;
+    }
+
+    .left-counterpart h5 {
+        font-size: 0.75rem;
+        margin: 0;
+        font-weight: 600;
     }
 
     .right-counterpart {
-        height: 100%;
-        aspect-ratio: 1 / 1;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        height: calc(var(--ht) - 1rem);
+        width: calc(var(--ht) - 1rem);
+        min-width: calc(var(--ht) - 1rem);
         border-radius: 50%;
-        padding: 0.1rem;
-        gap: 0.5rem;
-        background-color: var(--primary);
+        flex-shrink: 0;
     }
 
+    .destination {
+        font-size: 0.9rem;
+        width: 100%;
+    }
+
+    .react-datepicker-component {
+        font-size: 0.85rem;
+        width: 100%;
+    }
+
+    .number-in {
+        font-size: 0.85rem !important;
+        width: 100% !important;
+    }
+}
+
+/* Small Mobile Styles */
+@media screen and (max-width: 480px) {
+    .search-form {
+        --ht: 2.75rem;
+        width: 98%;
+        padding: 0.25rem;
+        gap: 0.25rem;
+    }
+
+    .input-search,
+    .input-search-last {
+        height: var(--ht);
+        min-height: 44px;
+        padding: 0.4rem 0.75rem;
+    }
+
+    .input-search-last {
+        padding: 0.4rem 0.4rem 0.4rem 0.75rem;
+    }
+
+    .input-search h5,
+    .left-counterpart h5 {
+        font-size: 0.7rem;
+    }
+
+    .destination {
+        font-size: 0.85rem;
+    }
+
+    .react-datepicker-component {
+        font-size: 0.8rem;
+    }
+
+    .number-in {
+        font-size: 0.8rem !important;
+    }
+
+    .input-search-last.expanded .right-counterpart {
+        min-width: 5rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .input-search-last.expanded .right-counterpart p {
+        font-size: 0.8rem;
+    }
+
+    .right-counterpart {
+        height: calc(var(--ht) - 0.8rem);
+        width: calc(var(--ht) - 0.8rem);
+        min-width: calc(var(--ht) - 0.8rem);
+    }
+}
+
+/* Hover effects only for non-touch devices */
+@media (hover: hover) {
     .input-search-last:hover {
         background-color: var(--bg-dusky);
     }
@@ -84,38 +270,4 @@
     .input-search:hover {
         background-color: var(--bg-dusky);
     }
-
-    .input-search-last:focus-within {
-        border-color: black;
-        background-color: white; 
-    }
-
-    .input-search:focus-within {
-        border-color: black;
-        background-color: white; 
-    }
-
-    .destination {
-        all: unset;
-        width: 75%;
-        color: var(--text-dark);
-        font-family: var(--ff);
-        font-size: 1rem;
-        cursor: text;
-        border: none;
-        background-color: transparent;
-    }
-
-    .react-datepicker-component {
-        cursor: pointer;
-        font-size: 0.9rem; 
-        font-family: var(--ff);
-        pointer-events: auto;
-        border: none;
-        background-color: transparent;
-    }
-
-    .number-in {
-        all: unset;
-        border: none;
-    }
+}
