@@ -26,7 +26,8 @@ app.use((req, res, next) => {
     const allowedOrigins = [
         'http://localhost:5173',
         'http://localhost:5174',
-        'https://avora-rust.vercel.app/'
+        'https://avora-rust.vercel.app/',
+        'https://avora-client.onrender.com'
     ];
 
     const origin = req.headers.origin;
