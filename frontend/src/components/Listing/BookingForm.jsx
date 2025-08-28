@@ -92,10 +92,8 @@ import { getUserInfo } from '../../utils/auth';
 
             // Step 1: Call backend to create order
             const response = await inititateBooking(bookingDetails);
-            console.log(response)
             const { orderId, amount, key, receiptId } = response.data;
-            console.log(`0000000000000000000000${response.data.amount}`)
-
+            const user = getUserInfo()
             // Step 2: Open Razorpay Checkout
             const options = {
                 key,
@@ -116,14 +114,14 @@ import { getUserInfo } from '../../utils/auth';
                                 checkOut: bookingDetails.checkOut,
                                 guestCount: bookingDetails.numberOfGuests,
                                 listingId: listing._id,
-                                userId: getUserInfo().id, // replace with logged in user id
+                                userId: user.id, // replace with logged in user id
                             }),
                         });
 
                         const data = await verifyRes.json();
                         if (data.success) {
                             alert("Booking confirmed ✅");
-                            navigate(`/listings /${listing._id}`);
+                            navigate(`/listings/${listing._id}`);
                         } else {
                             alert("Payment verification failed ❌");
                         }
