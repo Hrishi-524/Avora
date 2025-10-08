@@ -29,9 +29,9 @@ This project showcases best practices in **frontend–backend integration**, **J
 
 | Category | Technologies |
 |-----------|---------------|
-| **Frontend** | React, React Router, Axios, Tailwind CSS |
+| **Frontend** | React, React Router, Axios |
 | **Backend** | Node.js, Express.js |
 | **Database** | MongoDB (Mongoose ORM) |
 | **Authentication** | JWT, bcrypt |
 | **Payments** | Razorpay API |
-| **Deployment** | (Add your hosting platform — e.g., Render, Vercel, or Netlify) |
+| **Deployment** | Vrecel (frontend) and Render(backend) |
