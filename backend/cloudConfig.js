@@ -10,7 +10,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
     cloudinary,
     params: {
-        folder: "wanderlust", // all uploads go inside this folder
+        folder: "quizburst", // all uploads go inside this folder
         allowed_formats: ["jpg", "png", "jpeg", "webp"],
     },
 });
