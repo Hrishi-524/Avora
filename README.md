@@ -29,9 +29,46 @@ This project showcases best practices in **frontend–backend integration**, **J
 
 | Category | Technologies |
 |-----------|---------------|
-| **Frontend** | React, React Router, Axios |
-| **Backend** | Node.js, Express.js |
+| **Frontend** | React, React Router, Axios, Mapbox, MUI|
+| **Backend** | Node.js, Express.js, Cloudinary, JWT, Razorpay |
 | **Database** | MongoDB (Mongoose ORM) |
-| **Authentication** | JWT, bcrypt |
-| **Payments** | Razorpay API |
-| **Deployment** | Vrecel (frontend) and Render(backend) |
+| **Deployment** | Vercel (frontend) and Render(backend) |
+
+## Screenshots for better understanding
+
+<h2>Home Page</h2>
+
+![Home](assets/avora_home.png)
+
+<h2>Login Page</h2>
+
+![Home](assets/avora_home.png)
+
+<h2>Map</h2>
+
+![Home](assets/avora_map.png)
+
+<h2>Payment</h2>
+
+![Home](assets/avora_payment.png)
+
+<h2>Reviews</h2>
+
+![Home](assets/avora_reviews.png)
+
+<h2>Listing</h2>
+
+![Home](assets/avora_listing.png)
+
+<h2>Host Listing</h2>
+
+![Home](assets/avora_host_listing_1.png)
+![Home](assets/avora_host_listing_2.png)
+
+<h2>Profile</h2>
+
+![Home](assets/avora_profile.png)
+
+<h2>Footer</h2>
+
+![Home](assets/avora_footer.png)
