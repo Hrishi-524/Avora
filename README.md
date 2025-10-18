@@ -1,10 +1,10 @@
-# 🌐 Avora
+# Avora (Scroll down to see screenshots deployed URL is on the sidebar)
 
 > A full-stack web application for seamless stay booking and management — powered by modern web technologies, strong authentication, and secure payments.
 
 ---
 
-## 🚀 Overview
+## Overview
 
 **Avora** is a full-stack web application inspired by the idea of exploring and booking stays, similar to Wanderlust (Airbnb clone).  
 It’s a re-engineered version built using **React**, with a focus on **real-world scalability, user authentication, payments**, and a **modern responsive UI/UX**.
@@ -13,7 +13,7 @@ This project showcases best practices in **frontend–backend integration**, **J
 
 ---
 
-## ✨ Features
+## Features
 
 - 🔐 **Authentication & Authorization** — Secure login/signup using **JWT**
 - 💳 **Payment Gateway Integration** — Razorpay-based seamless payment checkout
