@@ -1,4 +1,4 @@
-# Avora (Scroll down to see screenshots deployed URL is on the sidebar)
+# Avora (Scroll down to see screenhots deployed URL is on the sidebar)
 
 > A full-stack web application for seamless stay booking and management — powered by modern web technologies, strong authentication, and secure payments.
 
@@ -42,7 +42,7 @@ This project showcases best practices in **frontend–backend integration**, **J
 
 <h2>Login Page</h2>
 
-![Home](assets/avora_home.png)
+![Home](assets/avora_login.png)
 
 <h2>Map</h2>
 
