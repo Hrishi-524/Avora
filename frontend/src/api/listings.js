@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const fetchListings = async () => {
     try {
-        const res = await axios.get('/api/listings');
+        const res = await axios.get('/listings');
         return res.data;
     } catch (error) {
         console.error("Error fetching listings", error);
@@ -14,7 +14,7 @@ export const fetchListingById = async (id) => {
     try {
         console.log(`fetch`)
         // Token will be automatically included via axios defaults set in user.js
-        const res = await axios.get(`/api/listings/${id}`);
+        const res = await axios.get(`/listings/${id}`);
         console.log(`res.data`,res.data)
         return res.data;
     } catch (error) {
@@ -25,7 +25,7 @@ export const fetchListingById = async (id) => {
 
 export const sendSearchInfo = async (searchData) => {
     try {
-        const response = await axios.post('/api/listings/search', searchData);
+        const response = await axios.post('/listings/search', searchData);
         return response.data; // Return the data
     } catch (error) {
         console.error("Error sending search info", error);
@@ -58,7 +58,7 @@ export const createListing = async (newListing) => {
         }
 
         console.log('formdata to be sent by axios', formData)
-        const response = await axios.post('/api/listings/new', formData, {
+        const response = await axios.post('/listings/new', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
@@ -72,7 +72,7 @@ export const createListing = async (newListing) => {
 
 export const destroyListing = async (listingId) => {
     try {
-        const res = await axios.delete(`/api/listings/delete/${listingId}`);
+        const res = await axios.delete(`/listings/delete/${listingId}`);
         return res.data.deletedListing;
     } catch (error) {
         console.error("unable to create listing", error);
@@ -82,7 +82,7 @@ export const destroyListing = async (listingId) => {
 
 export const editListing = async (listingId, editedListing) => {
     try {
-        const res = await axios.put(`/api/listings/edit/${listingId}`,editedListing)
+        const res = await axios.put(`/listings/edit/${listingId}`,editedListing)
     } catch (error) {
         console.error("unable to create listing", error);
         throw error;

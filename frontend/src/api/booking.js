@@ -52,18 +52,18 @@ import { getUserInfo } from "../utils/auth";
 
 
 export const inititateBooking = async (bookingDetails) => {
-  return axios.post(`/api/listings/${bookingDetails.listingId}/book`, bookingDetails);
+  return axios.post(`/listings/${bookingDetails.listingId}/book`, bookingDetails);
 };
 
 
 export const fetchUserBookings = async (id) => {
-    const res = await axios.get(`/api/bookings/${id}`);
+    const res = await axios.get(`/bookings/${id}`);
     console.log(res.data.userBookings)
     return res.data.userBookings;   // so Profile.jsx gets just the array
 };
 
 export const fetchHostListings = async (id) => {
-    const res = await axios.get(`/api/host/${id}`)
+    const res = await axios.get(`/host/${id}`)
     console.log(res.data.hostListings)
     return res.data.hostListings
 }

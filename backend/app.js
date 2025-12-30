@@ -50,15 +50,15 @@ import userRouter from './routes/user.js';
 import bookingRouter from './routes/booking.js'
 import paymentRouter from './routes/payment.js'
 
-app.use("/api", userRouter);
+app.use("/api/wanderlust/", userRouter);
 
-app.use("/api/listings", listingRouter);
+app.use("/api/wanderlust/listings", listingRouter);
 
-app.use("/api/listings/:id/reviews", reviewRouter);
+app.use("/api/wanderlust/listings/:id/reviews", reviewRouter);
 
-app.use("/api/listings/:id/book", bookingRouter);
+app.use("/api/wanderlust/listings/:id/book", bookingRouter);
 
-app.use("/api/payment", paymentRouter);
+app.use("/api/wanderlust/payment", paymentRouter);
 
 import ExpressError from './errorhandling/ExpressError.js';
 import NotFound from './errorhandling/NotFound.js';

@@ -4,13 +4,13 @@ import { setToken } from '../utils/auth';
 
 export const sendSignupData = async (signupData) => {
     //POST : /api/signup
-    const response = await axios.post("/api/signup", signupData);
+    const response = await axios.post("/signup", signupData);
     return response; // Return full response
 }
 
 export const verifyLoginData = async (loginData) => {
     //POST : /api/login
-    const response = await axios.post("/api/login", loginData);
+    const response = await axios.post("/login", loginData);
     return response;
 }
 
@@ -30,7 +30,7 @@ export const fetchUserProfile = async (id) => {
     try {
         const token = localStorage.getItem("token"); 
         console.log('axios/user checkpoint')
-        const response = await axios.get(`/api/user/${id}`,{
+        const response = await axios.get(`/user/${id}`,{
             headers: {
             Authorization: `Bearer ${token}`
             }
