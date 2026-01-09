@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 .env
+.env.developmet
+.env.production
 
 temp/
 

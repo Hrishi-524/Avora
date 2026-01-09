@@ -572,7 +572,7 @@
 .logo-text .brand-name {
     font-weight: 700 !important;
     letter-spacing: -0.5px !important;
-    background: var(--primary) !important;
+    background: var(--secondary-dark) !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     background-clip: text !important;
@@ -583,7 +583,7 @@
 .logo-text .brand-tagline {
     font-size: 0.7rem !important;
     opacity: 0.9 !important;
-    background: var(--primary) !important;
+    background: var(--secondary-dark) !important;
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
     background-clip: text !important;

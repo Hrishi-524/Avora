@@ -55,28 +55,23 @@ export default function Navbar() {
                     {/* Logo */}
                     <Link to="/" className="navbar-logo">
     <Box className="logo-container">
-        <Avatar 
+        <Avatar
+            src="/images/logo.png"   // or /logo.svg
+            alt="Avora logo"
             className="logo-avatar"
             sx={{
                 width: 42,
                 height: 42,
-                background: 'linear-gradient(135deg, #48bb78, #38a169)',
-                transform: 'rotate(-1deg)',
-                transition: 'all 0.3s ease',
-                boxShadow: '0 3px 12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+                background: 'transparent',
                 border: '2px solid rgba(255, 255, 255, 0.8)',
+                boxShadow: '0 3px 12px rgba(0, 0, 0, 0.15)',
+                transition: 'all 0.3s ease',
                 '&:hover': {
-                    transform: 'rotate(1deg) scale(1.05)',
-                    boxShadow: '0 5px 20px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
-                }
+                transform: 'scale(1.05)',
+                boxShadow: '0 5px 20px rgba(0, 0, 0, 0.2)',
+                },
             }}
-        >
-            <Box className="path-icon">
-                <Box className="path-line path-1" />
-                <Box className="path-line path-2" />
-                <Box className="path-dot" />
-            </Box>
-        </Avatar>
+            />
         
         <Box className="logo-text">
             <Typography className="brand-name" variant="h5" component="span">
