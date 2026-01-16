@@ -32,11 +32,16 @@ app.use(cors({
 // Or be more specific but flexible
 app.use(cors({
     origin: (origin, callback) => {
-        // Allow requests with no origin (mobile apps, Postman, etc.)
-        if (!origin) return callback(null, true);
+        const allowedOrigins = [
+            'https://wanderlust.route53.xyz',
+            'https://route53.xyz',
+            'http://localhost:5173'
+        ];
         
-        // Allow all origins for now
-        return callback(null, true);
+        if (!origin || allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+        return callback(null, true); // Allow for testing
     },
     credentials: true
 }));
